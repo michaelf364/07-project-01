@@ -13,7 +13,7 @@ var nextBtn = document.querySelector("#nextBtn");
 
 //victory screen
 var victoryScn = document.querySelector("#victoryScn");
-var nameInput = document.querySelector("#nameInput").value;
+var nameInput = document.querySelector("#nameInput");
 var submitBtn = document.querySelector("#submitBtn");
 var score = document.querySelector("#score");
 var playAgainVSBtn = document.querySelector("#playAgainVSBtn");
@@ -78,14 +78,14 @@ var casualScores = [
 
 initialize();
 function initialize(){
-    loadScores();
+    //loadScores();
     currentIndex = 0;
     timeLeft = 60;
-    // startScn.style.display = "block";
-    // questionScn.style.display = "none";
-    // victoryScn.style.display = "none";
-    // defeatScn.style.display = "none";
-    // highScoreScn.style.display = "none";
+    startScn.style.display = "block";
+    timeAttackScn.style.display = "none";
+    victoryScn.style.display = "none";
+    defeatScn.style.display = "none";
+    highScoreScn.style.display = "none";
 }
 
 function startTimer() {
