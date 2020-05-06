@@ -13,7 +13,7 @@
 <body>
     <header class="top-bar">
         <div class="top-bar-left">
-            <a class="" href="./index.html"> Quiz</a>
+            <a class="" href="./index.html"> Quizzical</a>
         </div>
     </header>
     <main class="container" id="main">
@@ -36,8 +36,26 @@
                 <button class="button" type="button" id="highScoresBtn">High Scores</button>
             </div>
         </section>
-        <section id="questionScn">
+        <section id="timeAttackScn">
             <div>Time: <span id="timeLeftSpan"></span></div>
+            <div class="grid-x w-50 mx-auto">
+                <div class="cell small-12 medium-6" id="currentQuestion">
+                </div>
+            </div>
+            <div class="grid-x">
+                <div class="cell small-12 medium-6">
+                    <ul style="list-style-type:none;" id="answers">
+                    </ul>
+                </div>
+            </div>
+            <div class="grid-x">
+                <div class="col">
+                    <div id="results">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="casualScn">
             <div class="grid-x w-50 mx-auto">
                 <div class="cell small-12 medium-6" id="currentQuestion">
                 </div>
