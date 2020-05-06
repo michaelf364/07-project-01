@@ -9,7 +9,102 @@
     <link rel="stylesheet" href="./Assets/css/style.css">
 </head>
 <body>
-    
+    <header>
+        <nav class="navbar navbar-expand navbar-dark bg-dark flex-column flex-md-row mb-3">
+          <a class="navbar-brand mr-md-auto mr-sm-0" href="./index.html">Javascript Quiz</a>
+        </nav>
+      </header>
+      <main class="container bg-primary" id="main">
+        <section class="row">
+          <div class="col">
+            <h2>Javascript Quiz</h2>
+          </div>
+        </section>
+        <section class="row">
+          <div class="col">
+            <hr class="h-divider">
+            </hr>
+          </div>
+        </section>
+        <section class="row" id="startScn">
+          <div class="col-sm-12 col-md-6">
+            <button class="btn btn-primary" type="button" id="startBtn">Start</button>
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <button class="btn btn-primary" type="button" id="highScoresBtn">High Scores</button>
+          </div>
+        </section>
+        <section id="questionScn">
+          <div>Time: <span id="timeLeftSpan"></span></div>
+          <div class="row w-50 mx-auto">
+            <div class="col" id="currentQuestion">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <ul style="list-style-type:none;" id="answers">
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div id="results">
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="victoryScn">
+          <div class="row justify-content-center">
+            <h2 class="col">You Win!!</h2>
+          </div>
+          <div class="row justify-content-center">
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="text" placeholder="Your Name" id="nameInput">
+              <button class="btn btn-primary my-2 my-sm-0" type="button" id="submitBtn">Submit</button>
+            </form>
+          </div>
+          <div class="row justify-content-center">
+            <h3>You had <span id="score"></span> seconds remaining</h3>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <button class="btn btn-primary" type="button" id="playAgainVSBtn">Play Again</button>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <button class="btn btn-primary" type="button" id="highScoresVSBtn">High Scores</button>
+            </div>
+          </div>
+        </section>
+        <section id="defeatScn">
+          <div class="row justify-content-center">
+            <h2 class="col">You Lost</h2>
+          </div>
+          <div class="row justify-content-center">
+            <h3 class="col"> Please Try Again</h3>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <button class="btn btn-primary" type="button" id="playAgainDSBtn">Try Again</button>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <button class="btn btn-primary" type="button" id="highScoresDSBtn">High Scores</button>
+            </div>
+          </div>
+        </section>
+        <section id="highScoreScn">
+          <h2 class="row justify-content-center">High Scores:</h2>
+          <ol id="highScoresList">
+          </ol>
+          <div class="row justify-content-center">
+            <button type="button" class="btn btn-primary" id="backBtn">Back</button>
+          </div>
+        </section>
+      </main>
+      <footer class="footer border-top bg-primary">
+        <div class="container bg-primary">
+          <p class="text-secondary">Copyright?</p>
+        </div>
+      </footer>
     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
         integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
