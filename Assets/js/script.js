@@ -87,3 +87,18 @@ function initialize(){
     // defeatScn.style.display = "none";
     // highScoreScn.style.display = "none";
 }
+
+function startTimer() {
+    timer = setInterval(function () {
+        timeLeft--;
+        if (timeLeft < 0) {
+            DisplayDefeatScreen();
+            clearInterval(timer);
+        }
+        timeLeftSpan.textContent = timeLeft;
+    }, 1000)
+}
+
+$("#startBtn").on("click", function(){
+    startTimer();
+})
