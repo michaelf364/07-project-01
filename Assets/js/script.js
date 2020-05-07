@@ -77,15 +77,15 @@ var casualScores = [
 ];
 
 initialize();
-function initialize(){
+function initialize() {
     //loadScores();
     currentIndex = 0;
     timeLeft = 60;
-    startScn.style.display = "block";
-    timeAttackScn.style.display = "none";
-    victoryScn.style.display = "none";
-    defeatScn.style.display = "none";
-    highScoreScn.style.display = "none";
+    //  startScn.style.display = "block";
+    // timeAttackScn.style.display = "none";
+    // victoryScn.style.display = "none";
+    // defeatScn.style.display = "none";
+    // highScoreScn.style.display = "none";
 }
 
 function startTimer() {
@@ -99,6 +99,28 @@ function startTimer() {
     }, 1000)
 }
 
-$("#startBtn").on("click", function(){
+$("#timeAttackBtn").on("click", function () {
     startTimer();
+    displayTimeAttack();
+});
+
+$("#casualBtn").on("click", function () {
+    displayCasual();
 })
+// Here we are building the URL we need to query the database
+var quizURL = "https://opentdb.com/api.php?amount=10&type=multiple";
+
+// We then created an AJAX call
+$.ajax({
+    url: quizURL,
+    method: "GET"
+}).then(function (response) {
+});
+
+function displayTimeAttack() {
+
+}
+
+function displayCasual() {
+
+}
