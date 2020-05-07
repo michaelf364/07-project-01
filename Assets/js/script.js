@@ -2,6 +2,7 @@
 var startScn = document.querySelector("#startScn");
 var startBtn = document.querySelector("#startBtn");
 var highScoresBtn = document.querySelector("#highScoresBtn");
+var secondButton = document.querySelector("secondButton"); // Second button added for next portion of our quizzes
 //question screen
 var timeAttackScn = document.querySelector("#timeAttackScn");
 var timeLeft = document.querySelector("#timeLeft");
@@ -77,7 +78,7 @@ var casualScores = [
 ];
 
 initialize();
-function initialize(){
+function initialize() {
     //loadScores();
     currentIndex = 0;
     timeLeft = 60;
@@ -99,6 +100,11 @@ function startTimer() {
     }, 1000)
 }
 
-$("#startBtn").on("click", function(){
+$("#startBtn").on("click", function () {
     startTimer();
 })
+
+
+// document.createElement and use that element 
+
+// for loop creating a list with those questions and placing that into the array

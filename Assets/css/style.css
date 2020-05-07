@@ -1,6 +1,6 @@
 *, *::before, *::after {
     box-sizing: border-box;
-    font-family: Gotham Rounded;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 :root {
@@ -10,7 +10,7 @@
 
 }
 
-body {
+.container {
     --hue: var(--hue-neutral);
     padding: 0;
     margin: 0;
@@ -48,6 +48,21 @@ body.wrong {
 
 
 }
+
+.title {
+    font-size: large;
+    
+}
+
+.currentQuestion {
+    background-color: blue;
+}
+
+.answer {
+    background-color: green;
+}
+
+/* 
 
 
 .button {
