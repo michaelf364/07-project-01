@@ -1,9 +1,11 @@
 @import './variables';
 
-@mixin flexCenter {
+// Add parameters to this that we can change
+@mixin flexCenter($direction) {
     justify-content: center;
     align-items: center;
     display: flex;
+    flex-direction: $direction;
     
 }
 
@@ -25,7 +27,7 @@ header {
 }
 
 #main {
-    @include flexCenter(); 
+    @include flexCenter(column); 
     justify-content: center;
     background-color: wheat;
     height: 50vh;
