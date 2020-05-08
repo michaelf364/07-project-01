@@ -4,7 +4,6 @@ header, h2 {
 }
 
 .container {
-  --hue: var(--hue-neutral);
   padding: 0;
   margin: 0;
   display: -webkit-box;
@@ -19,6 +18,8 @@ header, h2 {
       -ms-flex-align: center;
           align-items: center;
   background-color: hs1(var(--hue), 100%, 200%);
+  -webkit-box-shadow: 0 0 10px 2px;
+          box-shadow: 0 0 10px 2px;
 }
 
 #main {
@@ -39,6 +40,8 @@ header, h2 {
   background-color: wheat;
   height: 50vh;
   align-items: center;
+  padding: 0;
+  margin: 0;
 }
 
 .startBtn:hover {

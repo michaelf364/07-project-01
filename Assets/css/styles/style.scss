@@ -24,7 +24,7 @@ header {
     
 
 .container {
-    --hue: var(--hue-neutral);
+    $hue-neutral: grey;
     padding: 0;
     margin: 0;
     display: flex;
@@ -33,6 +33,8 @@ header {
     justify-content: center;
     align-items: center;
     background-color: hs1(var(--hue), 100%, 200%);
+    box-shadow: 0 0 10px 2px;
+    
 }
 
 #main {
@@ -41,6 +43,8 @@ header {
     background-color: wheat;
     height: 50vh;
     align-items: center;
+    padding: 0;
+    margin: 0;
 }
 
 // Nesting and separating files with partials are all included with SASS
@@ -49,6 +53,8 @@ header {
          color: black;
      }
     }
+
+
 
          
 
