@@ -1,6 +1,7 @@
 @import './variables';
 
 // Add parameters to this that we can change
+// Display flex and writing one line of code can become extremely helpful for lengthy projects
 @mixin flexCenter($direction) {
     justify-content: center;
     align-items: center;
@@ -9,8 +10,16 @@
     
 }
 
+// Add an extension in which will inherit all of the styles from the selected item you want to add in
+h2 {
+    @extend header;
+
+
+}
+
 header {
-    background: red;
+    text-shadow: papayawhip;
+    font-style: unset;
 }
     
 
@@ -34,6 +43,7 @@ header {
     align-items: center;
 }
 
+// Nesting and separating files with partials are all included with SASS
  .startBtn {
      &:hover {
          color: black;

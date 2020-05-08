@@ -1,5 +1,6 @@
-header {
-  background: red;
+header, h2 {
+  text-shadow: papayawhip;
+  font-style: unset;
 }
 
 .container {
