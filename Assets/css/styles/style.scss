@@ -1,4 +1,11 @@
-$secondButton : blue;
+@import './variables';
+
+@mixin flexCenter {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    
+}
 
 header {
     background: red;
@@ -18,10 +25,24 @@ header {
 }
 
 #main {
-    display: flex;
+    @include flexCenter(); 
     justify-content: center;
     background-color: wheat;
+    height: 50vh;
+    align-items: center;
 }
+
+ .startBtn {
+     &:hover {
+         color: black;
+     }
+    }
+
+         
+
+
+
+
 
 // To create a variable with JavaScript and have it work with SASS
 // Created a separate button for the two quizzes

@@ -21,12 +21,22 @@ header {
 }
 
 #main {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
   background-color: wheat;
+  height: 50vh;
+  align-items: center;
+}
+
+.startBtn:hover {
+  color: black;
 }
 /*# sourceMappingURL=style.css.map */
