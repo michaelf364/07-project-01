@@ -76,6 +76,8 @@ var casualScores = [
     }
 ];
 
+var quizURL = "https://opentdb.com/api.php?amount=10&type=multiple";
+var wikiURL = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=Stack%20Overflow";
 initialize();
 function initialize() {
     //loadScores();
@@ -86,6 +88,17 @@ function initialize() {
     // victoryScn.style.display = "none";
     // defeatScn.style.display = "none";
     // highScoreScn.style.display = "none";
+    var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=Stack%20Overflow";
+
+    var encodedUrl = encodeURIComponent(queryUrl);
+    $.ajax({
+        type: 'GET',
+        contentType: 'application/json',
+        url: 'https://corsbridge2.herokuapp.com/' + encodedUrl,
+        success: function (data) {
+            console.log(data);
+        }
+    });
 }
 
 function startTimer() {
@@ -109,12 +122,13 @@ $("#casualBtn").on("click", function () {
 })
 // Here we are building the URL we need to query the database
 var quizURL = "https://opentdb.com/api.php?amount=10&type=multiple";
-
+var wikiURL = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=Stack%20Overflow";
 // We then created an AJAX call
 $.ajax({
     url: quizURL,
     method: "GET"
 }).then(function (response) {
+    console.log(response);
 });
 
 function displayTimeAttack() {
@@ -124,3 +138,42 @@ function displayTimeAttack() {
 function displayCasual() {
 
 }
+
+function displayQuestionScn(index) {
+    answers.innerHTML = "";
+    currentQuestion.textContent = questions[index].question;
+    for (var i = 0; i < questions[index].choices.length; i++) {
+        var question = document.createElement("li");
+        var questionBtn = document.createElement("button");
+        questionBtn.setAttribute("type", "button");
+        questionBtn.setAttribute("id", i);
+        questionBtn.textContent = questions[index].choices[i];
+        questionBtn.setAttribute("class", "btn btn-primary");
+        question.appendChild(questionBtn);
+        answers.appendChild(question);
+    }
+}
+
+answers.addEventListener("click", function (playerAnswer) {
+    if (playerAnswer.target.matches("button")) {
+        var answer = playerAnswer.target.getAttribute("id");
+        var isCorrect = checkAnswer(currentIndex, answer);
+        if (isCorrect === true) {
+            results.textContent = "Correct";
+        }
+        else {
+            results.textContent = "Incorrect";
+            timeLeft -= 10;
+            timeLeftSpan.textContent = timeLeft;
+        }
+        setTimeout(clearResults, 1500)
+        currentIndex++;
+        if (currentIndex === questions.length) {
+            clearInterval(timer);
+            displayVictoryScreen();
+            checkScore();
+            return;
+        }
+        displayQuestionScn(currentIndex);
+    }
+});

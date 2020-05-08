@@ -3,7 +3,7 @@
 
 # Quizzical
 
-This is a responsive website built to host a javascript quiz
+This is a responsive website built to host a quiz
 
 ### Technology Used
 
