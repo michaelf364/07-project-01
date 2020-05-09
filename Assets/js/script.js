@@ -54,16 +54,88 @@ $("#startBtn").on("click", function () {
     }
     if (currentIndex < 6) {
         $("#answers").show();
-        document.getElementById('answerStatus').innerHTML = '';
+        document.getElementById('results').innerHTML = '';
     }
     for (var i = 1; i < 4; i++) {
         document.getElementById('choise' + i).disabled = false;
         document.getElementById('choise' + i).checked = false;
     }
+    
 
 })
 
+    var choise1Done=0;
+       var api = "https://opentdb.com/api.php?amount=1&category=21&difficulty=medium&type=multiple";
+       $.ajax({
+         url: api,
+         method: "GET"
+       })
+               // We store all of the retrieved data inside of an object called "response"
+               .then(function (t) {
+                 // Log the resulting object
+                 console.log(t)
 
+                 var reponse = t.results[0];
+                 var incorectAnswer = reponse.incorrect_answers;
+                 var question = reponse.question;
+                 answer = reponse.correct_answer;
+                 answerStr = reponse.correct_answer;
+                 var choise1 = incorectAnswer[0];
+                 var correctChoise = answer;
+                 var choise3 = incorectAnswer[2];
+                 document.querySelector('#currentQuestion').innerHTML = 'Q' + currentIndex + ': ' + question;
+                 answerValue = getRandomInt();
+
+                 for (var i = 1; i < 4; i++) {
+                   if (i === answerValue)
+                     document.getElementById('choise1' + i).innerHTML = correctChoise;
+                   else {
+                     if (choise1Done == 0) {
+                       choise1Done = 1;
+                       document.getElementById('choise2' + i).innerHTML = choise1;
+                     }
+                     else {
+                       if (choise1Done == 1) {
+                         document.getElementById('choise3' + i).innerHTML = choise2;
+                       }
+                       else {
+                        if (choise1Done == 2) {
+                          document.getElementById('choise4' + i).innerHTML = choise3;
+                     }
+                    }
+                    }
+                   }
+                 }
+                 currentIndex++;
+               });
+   
+
+function checkAnswer(selectedAnswer){
+
+   var counterOfCorrectAnswer = 0;
+   var answerValue;
+   var answerInformation;
+  
+
+      results='';
+      answerInformation='';
+  if(answerValue===selectedAnswer) {
+    results = "correct  answer";
+    answerInformation="correct answer congrats ";
+    counterOfCorrectAnswer++;
+  }
+    else {
+    answerStatus = "not correct answer";
+    answerInformation="not correct answer sorry ";
+    // getWekiInfo(answerStr);
+  }
+}
+
+function getRandomInt( ) {
+    min = Math.ceil(1);
+    max = Math.floor(3);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
 
 
