@@ -57,12 +57,12 @@ $("#startBtn").on("click", function () {
         document.getElementById('results').innerHTML = '';
     }
     // for (var i = 1; i < 4; i++) {
-    //     document.getElementById('choise' + i).disabled = false;
-    //     document.getElementById('choise' + i).checked = false;
+    //     document.getElementById('choice' + i).disabled = false;
+    //     document.getElementById('choice' + i).checked = false;
     // }
 
 
-    var choise1Done = 0;
+    var choice1Done = 0;
     var api = "https://opentdb.com/api.php?amount=1&category=21&difficulty=medium&type=multiple";
     $.ajax({
         url: api,
@@ -74,33 +74,43 @@ $("#startBtn").on("click", function () {
             console.log(t)
 
             var reponse = t.results[0];
-            var incorectAnswer = reponse.incorrect_answers;
+            var incorrectAnswer = reponse.incorrect_answers;
             var question = reponse.question;
-            answer = reponse.correct_answer;
-            answerStr = reponse.correct_answer;
-            var choise1 = incorectAnswer[0];
-            var correctChoise = answer;
-            var choise3 = incorectAnswer[2];
+            var answer = reponse.correct_answer;           
+            var choice1 = incorrectAnswer[0];
+            var correctchoice = answer;
+            var choice2 = incorrectAnswer[1];
+            var choice3 = incorrectAnswer[2];
             document.querySelector('#currentQuestion').innerHTML = 'Q' + currentIndex + ': ' + question;
             answerValue = Math.floor((Math.random() * 4) + 1);
 
             for (var i = 1; i < 4; i++) {
-                if (i === answerValue)
-                    document.querySelector('#choise' + i).value = correctChoise;
+                if (i === answerValue) {
+                    document.querySelector('#choice' + i).nextElementSibling.textContent = correctchoice;
+                }
+
                 else {
-                    if (choise1Done == 0) {
-                        choise1Done = 1;
-                        document.querySelector('#choise' + i).value = choise1;
+                    if (choice1Done == 0) {
+                        choice1Done = 1;
+                        document.querySelector('#choice' + i).nextElementSibling.textContent = choice1;
                     }
                     else {
-                        if (choise1Done == 1) {
-                            document.querySelector('#choise' + i).value = choise2;
+                        if (choice1Done == 1) {
+                            choice1Done = 2;
+                            document.querySelector('#choice' + i).nextElementSibling.textContent = choice2;
                         }
                         else {
-                            if (choise1Done == 2) {
-                                document.querySelector('#choise' + i).value = choise3;
+                            if (choice1Done == 2) {
+                                choice1Done = 3;
+                                document.querySelector('#choice' + i).nextElementSibling.textContent = choice3;
                             }
+                            // else {
+                            //     if (choice1Done == 3) {
+                            //         document.querySelector('#choice' + i).nextElementSibling.textContent = choice4;
+                            //     }
+                            // }
                         }
+
                     }
                 }
             }
@@ -129,12 +139,17 @@ function checkAnswer(selectedAnswer) {
         answerInformation = "not correct answer sorry ";
         // getWekiInfo(answerStr);
     }
-    document.querySelector("#choise1")
-    document.querySelector("#choise2")
-    document.querySelector("#choise3")
-    document.querySelector("#choise4")
+    document.querySelector("#choice1")
+    document.querySelector("#choice2")
+    document.querySelector("#choice3")
+    document.querySelector("#choice4")
 
 }
+$("#answers").on("click", function () {
+    checkAnswer();
+    console.log("Hello")
+})
+
 
 // function getRandomInt() {
 //     min = Math.ceil(1);
