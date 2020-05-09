@@ -118,7 +118,6 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 $("#startBtn").on("click", function (event) {
@@ -184,9 +183,6 @@ $("#answers").on("click", function(event) {
             results.textContent = "Incorrect";
             timeLeftSpan.textContent = timeLeft;
         }
-
-
-
     }
 })
 
