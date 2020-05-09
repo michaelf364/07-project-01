@@ -227,7 +227,7 @@ $("#playAgainDSBtn").on("click", function () {
 
 
 $("#nextBtn").on("click", function () {
-       if (currentIndex < 5) {
+       if (currentIndex < 20) {
            $("#answers").show();
            results.innerHTML = '';
            getNextQuestion();
