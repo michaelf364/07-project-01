@@ -60,87 +60,87 @@ $("#startBtn").on("click", function () {
     //     document.getElementById('choise' + i).disabled = false;
     //     document.getElementById('choise' + i).checked = false;
     // }
-   
 
-    var choise1Done=0;
-       var api = "https://opentdb.com/api.php?amount=1&category=21&difficulty=medium&type=multiple";
-       $.ajax({
-         url: api,
-         method: "GET"
-       })
-               // We store all of the retrieved data inside of an object called "response"
-               .then(function (t) {
-                 // Log the resulting object
-                 console.log(t)
 
-                 var reponse = t.results[0];
-                 var incorectAnswer = reponse.incorrect_answers;
-                 var question = reponse.question;
-                 answer = reponse.correct_answer;
-                 answerStr = reponse.correct_answer;
-                 var choise1 = incorectAnswer[0];
-                 var correctChoise = answer;
-                 var choise3 = incorectAnswer[2];
-                 document.querySelector('#currentQuestion').innerHTML = 'Q' + currentIndex + ': ' + question;
-                 answerValue = getRandomInt();
+    var choise1Done = 0;
+    var api = "https://opentdb.com/api.php?amount=1&category=21&difficulty=medium&type=multiple";
+    $.ajax({
+        url: api,
+        method: "GET"
+    })
+        // We store all of the retrieved data inside of an object called "response"
+        .then(function (t) {
+            // Log the resulting object
+            console.log(t)
 
-                 for (var i = 1; i < 4; i++) {
-                   if (i === answerValue)
-                     document.getElementById('choise' + i.toString).innerHTML = correctChoise;
-                   else {
-                     if (choise1Done == 0) {
-                       choise1Done = 1;
-                       document.getElementById('choise' + i.toString).innerHTML = choise1;
-                     }
-                     else {
-                       if (choise1Done == 1) {
-                         document.getElementById('choise' + i.toString).innerHTML = choise2;
-                       }
-                       else {
-                        if (choise1Done == 2) {
-                          document.getElementById('choise' + i.toString).innerHTML = choise3;
-                     }
+            var reponse = t.results[0];
+            var incorectAnswer = reponse.incorrect_answers;
+            var question = reponse.question;
+            answer = reponse.correct_answer;
+            answerStr = reponse.correct_answer;
+            var choise1 = incorectAnswer[0];
+            var correctChoise = answer;
+            var choise3 = incorectAnswer[2];
+            document.querySelector('#currentQuestion').innerHTML = 'Q' + currentIndex + ': ' + question;
+            answerValue = Math.floor((Math.random() * 4) + 1);
+
+            for (var i = 1; i < 4; i++) {
+                if (i === answerValue)
+                    document.querySelector('#choise' + i).value = correctChoise;
+                else {
+                    if (choise1Done == 0) {
+                        choise1Done = 1;
+                        document.querySelector('#choise' + i).value = choise1;
                     }
+                    else {
+                        if (choise1Done == 1) {
+                            document.querySelector('#choise' + i).value = choise2;
+                        }
+                        else {
+                            if (choise1Done == 2) {
+                                document.querySelector('#choise' + i).value = choise3;
+                            }
+                        }
                     }
-                   }
-                 }
-                 currentIndex++;
-               });
-            });
-               
-   
+                }
+            }
+            currentIndex++;
+        });
+});
 
-function checkAnswer(selectedAnswer){
 
-   var counterOfCorrectAnswer = 0;
-   var answerValue;
-   var answerInformation;
-  
 
-      results='';
-      answerInformation='';
-  if(answerValue===selectedAnswer) {
-    results = "correct  answer";
-    answerInformation="correct answer congrats ";
-    counterOfCorrectAnswer++;
-  }
+function checkAnswer(selectedAnswer) {
+
+    var counterOfCorrectAnswer = 0;
+    var answerValue;
+    var answerInformation;
+
+
+    results = '';
+    answerInformation = '';
+    if (answerValue === selectedAnswer) {
+        results = "correct  answer";
+        answerInformation = "correct answer congrats ";
+        counterOfCorrectAnswer++;
+    }
     else {
-    answerStatus = "not correct answer";
-    answerInformation="not correct answer sorry ";
-    // getWekiInfo(answerStr);
-  }
-  document.querySelector("#choise1")
-  document.querySelector("#choise2")
-  document.querySelector("#choise3")
-  document.querySelector("#choise4")
-  
+        answerStatus = "not correct answer";
+        answerInformation = "not correct answer sorry ";
+        // getWekiInfo(answerStr);
+    }
+    document.querySelector("#choise1")
+    document.querySelector("#choise2")
+    document.querySelector("#choise3")
+    document.querySelector("#choise4")
+
 }
 
-function getRandomInt( ) {
-    min = Math.ceil(1);
-    max = Math.floor(3);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+// function getRandomInt() {
+//     min = Math.ceil(1);
+//     max = Math.floor(3);
+//     return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
 
 
 
