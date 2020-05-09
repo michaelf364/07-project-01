@@ -9,7 +9,7 @@ var answerValue;
 var answerInformation;
 var currentIndex = 0;
 var resultPerc;
-var arrayOfScoresObj = new Array();
+var arrayOfScoresObj = [];
 
 
 
@@ -164,6 +164,7 @@ $("#submitPlayerInitials").on("click", function () {
 
 $("#highScoresVSBtn").on("click", function () {
     perviewHighScore();
+
 });
 
 
@@ -188,10 +189,14 @@ function perviewHighScore() {
         }
 
     }
+    localStorage.setItem("highScores", JSON.stringify(arrayOfScoresObj));
+    
 
-    else text = "No Scores yet  , Lets be the first One";
+}
 
-    alert(text);
+function loadHighScores() {
+    JSON.parse(localStorage.getItem("highScores"));
+
 }
 
 
@@ -234,6 +239,10 @@ $("#nextBtn").on("click", function () {
         currentIndex++;
     }
     else {
+        casualScn.style.display = "none";
+        victoryScn.style.display = "block";
+        defeatScn.style.display = "none";
+        highScoreScn.style.display = "none";
         $("#currentQuestion").hide();
         $("#answers").hide();
         $("#nextBtn").hide();
@@ -241,17 +250,15 @@ $("#nextBtn").on("click", function () {
 
 
 
-        resultPerc = 100 - (counterOfNotCorrectAnswer * 20);
+        
         results.innerHTML = 'Test is finished  your  result is  ' + resultPerc + ' %  >>>  ' + counterOfCorrectAnswer + ' correct answers  and ' + counterOfNotCorrectAnswer + ' no correct answer';
         results.style.color = "black";
-        if (resultPerc >= 50)
-            victoryScn.style.display = "contents";
-        else
-            defeatScn.style.display = "contents";
+        victoryScn.style.display = "contents";
 
     }
     resultsWekiInfo.innerHTML = '';
 });
+
 
 
 
@@ -342,6 +349,15 @@ function getWekiInfo(correctAnswer) {
 }
 
 
-
+var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=Stack%20Overflow";
+var encodedUrl = encodeURIComponent(queryUrl);
+$.ajax({
+    type: 'GET',
+    contentType: 'application/json',
+    url: 'https://corsbridge2.herokuapp.com/' + encodedUrl,
+    success: function (data) {
+        console.log(data);
+    }
+});
 
 
