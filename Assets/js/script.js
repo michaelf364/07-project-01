@@ -56,13 +56,11 @@ $("#startBtn").on("click", function () {
         $("#answers").show();
         document.getElementById('results').innerHTML = '';
     }
-    for (var i = 1; i < 4; i++) {
-        document.getElementById('choise' + i).disabled = false;
-        document.getElementById('choise' + i).checked = false;
-    }
-    
-
-})
+    // for (var i = 1; i < 4; i++) {
+    //     document.getElementById('choise' + i).disabled = false;
+    //     document.getElementById('choise' + i).checked = false;
+    // }
+   
 
     var choise1Done=0;
        var api = "https://opentdb.com/api.php?amount=1&category=21&difficulty=medium&type=multiple";
@@ -88,19 +86,19 @@ $("#startBtn").on("click", function () {
 
                  for (var i = 1; i < 4; i++) {
                    if (i === answerValue)
-                     document.getElementById('choise1' + i).innerHTML = correctChoise;
+                     document.getElementById('choise' + i.toString).innerHTML = correctChoise;
                    else {
                      if (choise1Done == 0) {
                        choise1Done = 1;
-                       document.getElementById('choise2' + i).innerHTML = choise1;
+                       document.getElementById('choise' + i.toString).innerHTML = choise1;
                      }
                      else {
                        if (choise1Done == 1) {
-                         document.getElementById('choise3' + i).innerHTML = choise2;
+                         document.getElementById('choise' + i.toString).innerHTML = choise2;
                        }
                        else {
                         if (choise1Done == 2) {
-                          document.getElementById('choise4' + i).innerHTML = choise3;
+                          document.getElementById('choise' + i.toString).innerHTML = choise3;
                      }
                     }
                     }
@@ -108,6 +106,8 @@ $("#startBtn").on("click", function () {
                  }
                  currentIndex++;
                });
+            });
+               
    
 
 function checkAnswer(selectedAnswer){
@@ -129,6 +129,11 @@ function checkAnswer(selectedAnswer){
     answerInformation="not correct answer sorry ";
     // getWekiInfo(answerStr);
   }
+  document.querySelector("#choise1")
+  document.querySelector("#choise2")
+  document.querySelector("#choise3")
+  document.querySelector("#choise4")
+  
 }
 
 function getRandomInt( ) {
