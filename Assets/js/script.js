@@ -2,10 +2,8 @@
 var startScn = document.querySelector("#startScn");
 var startBtn = document.querySelector("#startBtn");
 var highScoresBtn = document.querySelector("#highScoresBtn");
-var secondButton = document.querySelector("secondButton"); // Second button added for next portion of our quizzes
+
 //question screen
-var timeAttackScn = document.querySelector("#timeAttackScn");
-var timeLeft = document.querySelector("#timeLeft");
 var currentQuestion = document.querySelector("#currentQuestion");
 var answers = document.querySelector("#answers");
 var results = document.querySelector("#results");
@@ -30,83 +28,138 @@ var highScoreScn = document.querySelector("#highScoreScn");
 var highScoresList = document.querySelector("#highScoresList");
 var backButton = document.querySelector("#backButton");
 var currentIndex;
-var timeLeft;
-var timer;
-var timeAttackScores = [
-    {
-        name: "None",
-        score: 0
-    },
-    {
-        name: "None",
-        score: 0
-    },
-    {
-        name: "None",
-        score: 0
-    },
-    {
-        name: "None",
-        score: 0
-    },
-    {
-        name: "None",
-        score: 0
-    }
-];
-var casualScores = [
-    {
-        name: "None",
-        score: 0
-    },
-    {
-        name: "None",
-        score: 0
-    },
-    {
-        name: "None",
-        score: 0
-    },
-    {
-        name: "None",
-        score: 0
-    },
-    {
-        name: "None",
-        score: 0
-    }
-];
+
+
 
 initialize();
 function initialize() {
     //loadScores();
     currentIndex = 0;
-    timeLeft = 60;
     startScn.style.display = "block";
-    timeAttackScn.style.display = "none";
+    casualScn.style.display = "none";
     victoryScn.style.display = "none";
     defeatScn.style.display = "none";
     highScoreScn.style.display = "none";
 }
 
-function startTimer() {
-    timer = setInterval(function () {
-        timeLeft--;
-        if (timeLeft < 0) {
-            DisplayDefeatScreen();
-            clearInterval(timer);
-        }
-        timeLeftSpan.textContent = timeLeft;
-    }, 1000)
-}
-
 $("#startBtn").on("click", function () {
-    startTimer();
+    startScn.style.display = "none";
+    casualScn.style.display = "block";
+    victoryScn.style.display = "none";
+    defeatScn.style.display = "none";
+    highScoreScn.style.display = "none";
+
+    if (currentIndex > 0) {
+        $("#nextBt").show();
+    }
+    if (currentIndex < 6) {
+        $("#answers").show();
+        document.getElementById('results').innerHTML = '';
+    }
+    // for (var i = 1; i < 4; i++) {
+    //     document.getElementById('choice' + i).disabled = false;
+    //     document.getElementById('choice' + i).checked = false;
+    // }
+
+
+    var choice1Done = 0;
+    var api = "https://opentdb.com/api.php?amount=1&category=21&difficulty=medium&type=multiple";
+    $.ajax({
+        url: api,
+        method: "GET"
+    })
+        // We store all of the retrieved data inside of an object called "response"
+        .then(function (t) {
+            // Log the resulting object
+            console.log(t)
+
+            var reponse = t.results[0];
+            var incorrectAnswer = reponse.incorrect_answers;
+            var question = reponse.question;
+            var answer = reponse.correct_answer;
+            var choice1 = incorrectAnswer[0];
+            var correctchoice = answer;
+            var choice2 = incorrectAnswer[1];
+            var choice3 = incorrectAnswer[2];
+            document.querySelector('#currentQuestion').innerHTML = 'Q' + currentIndex + ': ' + question;
+            answerValue = Math.floor((Math.random() * 4) + 1);
+
+            for (var i = 1; i < 4; i++) {
+                if (i === answerValue) {
+                    document.querySelector('#choice' + i).nextElementSibling.textContent = correctchoice;
+                }
+
+                else {
+                    if (choice1Done == 0) {
+                        choice1Done = 1;
+                        document.querySelector('#choice' + i).nextElementSibling.textContent = choice1;
+                    }
+                    else {
+                        if (choice1Done == 1) {
+                            choice1Done = 2;
+                            document.querySelector('#choice' + i).nextElementSibling.textContent = choice2;
+                        }
+                        else {
+                            if (choice1Done == 2) {
+                                choice1Done = 3;
+                                document.querySelector('#choice' + i).nextElementSibling.textContent = choice3;
+                            }
+                            // else {
+                            //     if (choice1Done == 3) {
+                            //         document.querySelector('#choice' + i).nextElementSibling.textContent = choice4;
+                            //     }
+                            // }
+                        }
+
+                    }
+                }
+            }
+            currentIndex++;
+        });
+});
+
+
+
+function checkAnswer(selectedAnswer) {
+
+    var counterOfCorrectAnswer = 0;
+    var answerValue;
+    var answerInformation;
+
+
+    results = '';
+    answerInformation = '';
+    if (answerValue === selectedAnswer) {
+        results = "correct  answer";
+        answerInformation = "correct answer congrats ";
+        counterOfCorrectAnswer++;
+    }
+    else {
+        answerStatus = "not correct answer";
+        answerInformation = "not correct answer sorry ";
+        // getWekiInfo(answerStr);
+    }
+    document.querySelector("#choice1")
+    document.querySelector("#choice2")
+    document.querySelector("#choice3")
+    document.querySelector("#choice4")
+
+}
+$("#answers").on("click", function () {
+    checkAnswer();
+    console.log("Hello")
 })
 
+
+// function getRandomInt() {
+//     min = Math.ceil(1);
+//     max = Math.floor(3);
+//     return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
 
 
 
 // document.createElement and use that element 
+
 
 // for loop creating a list with those questions and placing that into the array

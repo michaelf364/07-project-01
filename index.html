@@ -49,40 +49,24 @@
             <div class="cell auto">
             </div>
         </section>
-        <section id="timeAttackScn">
-            <div>Time: <span id="timeLeftSpan"></span></div>
-            <div class="grid-x">
-                <div class="cell small-12 medium-6" id="currentQuestion">
-                </div>
-            </div>
-            <div class="grid-x">
-                <div class="cell small-12 medium-6">
-                    <ul style="list-style-type:none;" id="answers">
-                    </ul>
-                </div>
-            </div>
-            <div class="grid-x">
-                <div class="col">
-                    <div id="results">
-                    </div>
-                </div>
-            </div>
-        </section>
         <section id="casualScn">
             <div class="grid-x">
                 <div class="cell small-12 medium-6" id="currentQuestion">
                 </div>
             </div>
-            <div class="grid-x">
+            <div class="grid-x" id="answers">
                 <div class="cell small-12 medium-6">
-                    <ul style="list-style-type:none;" id="answers">
-                    </ul>
+                    <fieldset>
+                        <input type="radio" id="choice1" name="choices[]" required><label for="choice1"></label>
+                        <input type="radio" id="choice2" name="choices[]"><label for="choice2"></label>
+                        <input type="radio" id="choice3" name="choices[]"><label for="choice3"></label>
+                        <input type="radio" id="choice4" name="choices[]"><label for="choice4"></label>
+                    </fieldset>
                 </div>
             </div>
             <div class="grid-x">
                 <div class="cell small-12 medium-6">
-                    <div id="results">
-                    </div>
+                    <label id="results"></label> 
                 </div>
             </div>
             <div class="grid-x">
