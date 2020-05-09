@@ -56,108 +56,112 @@ $("#startBtn").on("click", function () {
         $("#answers").show();
         document.getElementById('results').innerHTML = '';
     }
-    // for (var i = 1; i < 4; i++) {
-    //     document.getElementById('choice' + i).disabled = false;
-    //     document.getElementById('choice' + i).checked = false;
-    // }
+})
+    for (var i = 1; i < 4; i++) {
+        document.getElementById('choice' + i).disabled = false;
+        document.getElementById('choice' + i).checked = false;
+    }
+    // var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=Stack%20Overflow";
+    // var encodedUrl = encodeURIComponent(queryUrl);
+    // $.ajax({
+    //     type: 'GET',
+    //     contentType: 'application/json',
+    //     url: 'https://corsbridge2.herokuapp.com/' + encodedUrl,
+    //     success: function (data) {
+    //         console.log(data);
+    //     }
+    // });
 
 
-    var choice1Done = 0;
-    var api = "https://opentdb.com/api.php?amount=1&category=21&difficulty=medium&type=multiple";
-    $.ajax({
-        url: api,
-        method: "GET"
+
+
+
+
+    $("#answers").on("click", function () {
+        checkAnswer();
+        console.log("Hello")
     })
-        // We store all of the retrieved data inside of an object called "response"
-        .then(function (t) {
-            // Log the resulting object
-            console.log(t)
 
-            var reponse = t.results[0];
-            var incorrectAnswer = reponse.incorrect_answers;
-            var question = reponse.question;
-            var answer = reponse.correct_answer;           
-            var choice1 = incorrectAnswer[0];
-            var correctchoice = answer;
-            var choice2 = incorrectAnswer[1];
-            var choice3 = incorrectAnswer[2];
-            document.querySelector('#currentQuestion').innerHTML = 'Q' + currentIndex + ': ' + question;
-            answerValue = Math.floor((Math.random() * 4) + 1);
-
-            for (var i = 1; i < 4; i++) {
-                if (i === answerValue) {
-                    document.querySelector('#choice' + i).nextElementSibling.textContent = correctchoice;
-                }
-
-                else {
-                    if (choice1Done == 0) {
-                        choice1Done = 1;
-                        document.querySelector('#choice' + i).nextElementSibling.textContent = choice1;
+    function getNextQuestion() {
+        resultsWekiInfo.innerHTML = '';
+        nextBtn.disabled = true;
+        var api = "https://opentdb.com/api.php?amount=1&category=21&difficulty=medium&type=multiple";
+        $.ajax({
+            url: api,
+            method: "GET"
+        })
+            // We store all of the retrieved data inside of an object called "response"
+            .then(function (t) {
+                // Log the resulting object
+                var reponse = t.results[0];
+                var incorrectAnswer = reponse.incorrect_answers;
+                var question = reponse.question;
+                var answer = reponse.correct_answer;
+                correctchoice = answer;
+                var choice1 = incorrectAnswer[0];
+                var choice2 = incorrectAnswer[1];
+                var choice3 = incorrectAnswer[2];
+                document.querySelector('#currentQuestion').innerHTML = 'Q' + currentIndex + ': ' + question;
+                answerValue = Math.floor((Math.random() * 4) + 1);
+                var choice1Done = 0;
+                for (var i = 1; i < 5; i++) {
+                    if (i === answerValue) {
+                        document.querySelector('#choice' + i).nextElementSibling.textContent = correctchoice;
                     }
                     else {
-                        if (choice1Done == 1) {
-                            choice1Done = 2;
-                            document.querySelector('#choice' + i).nextElementSibling.textContent = choice2;
+                        if (choice1Done === 0) {
+                            choice1Done = 1;
+                            document.querySelector('#choice' + i).nextElementSibling.textContent = choice1;
                         }
                         else {
-                            if (choice1Done == 2) {
-                                choice1Done = 3;
-                                document.querySelector('#choice' + i).nextElementSibling.textContent = choice3;
+                            if (choice1Done === 1) {
+                                choice1Done = 2;
+                                document.querySelector('#choice' + i).nextElementSibling.textContent = choice2;
                             }
-                            // else {
-                            //     if (choice1Done == 3) {
-                            //         document.querySelector('#choice' + i).nextElementSibling.textContent = choice4;
-                            //     }
-                            // }
+                            else {
+                                if (choice1Done === 2) {
+                                    choice1Done = 3;
+                                    document.querySelector('#choice' + i).nextElementSibling.textContent = choice3;
+                                }
+                            }
                         }
-
                     }
                 }
-            }
-            currentIndex++;
-        });
-});
-
-
-
-function checkAnswer(selectedAnswer) {
-
-    var counterOfCorrectAnswer = 0;
-    var answerValue;
-    var answerInformation;
-
-
-    results = '';
-    answerInformation = '';
-    if (answerValue === selectedAnswer) {
-        results = "correct  answer";
-        answerInformation = "correct answer congrats ";
-        counterOfCorrectAnswer++;
+                for (var i = 1; i < 5; i++) {
+                    document.getElementById('choice' + i).disabled = false;
+                    document.getElementById('choice' + i).checked = false;
+                }
+            });
     }
-    else {
-        answerStatus = "not correct answer";
-        answerInformation = "not correct answer sorry ";
-        // getWekiInfo(answerStr);
+
+    function checkAnswer(selectedAnswer) {
+
+        var counterOfCorrectAnswer = 0;
+        var answerValue;
+        var answerInformation;
+
+
+        results = '';
+        answerInformation = '';
+        if (answerValue === selectedAnswer) {
+            results = "correct  answer";
+            answerInformation = "correct answer congrats ";
+            counterOfCorrectAnswer++;
+        }
+        else {
+            answerStatus = "not correct answer";
+            answerInformation = "not correct answer sorry ";
+            // getWekiInfo(answerStr);
+        }
+        document.querySelector("#choice1")
+        document.querySelector("#choice2")
+        document.querySelector("#choice3")
+        document.querySelector("#choice4")
+
     }
-    document.querySelector("#choice1")
-    document.querySelector("#choice2")
-    document.querySelector("#choice3")
-    document.querySelector("#choice4")
 
-}
-$("#answers").on("click", function () {
-    checkAnswer();
-    console.log("Hello")
-})
-
-
-// function getRandomInt() {
-//     min = Math.ceil(1);
-//     max = Math.floor(3);
-//     return Math.floor(Math.random() * (max - min + 1)) + min;
-// }
-
-
+    
+    
 
 // document.createElement and use that element 
 
