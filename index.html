@@ -30,30 +30,10 @@
         </section>
         <section class="grid-x" id="startScn">
             <div class="cell auto">
-                <button class="button" type="button" id="timeAttackBtn">Time Attack</button>
-                <button class="button" type="button" id="casualBtn">Casual</button>
+                <button class="button" type="button" id="startBtn">Start</button>
                 <button class="button" type="button" id="highScoresBtn" style="margin-left: 10px;">High Scores</button>
             </div>
             <div class="cell auto">
-            </div>
-        </section>
-        <section id="timeAttackScn">
-            <div>Time: <span id="timeLeftSpan"></span></div>
-            <div class="grid-x">
-                <div class="cell small-12 medium-6" id="currentQuestion">
-                </div>
-            </div>
-            <div class="grid-x">
-                <div class="cell small-12 medium-6">
-                    <ul style="list-style-type:none;" id="answers">
-                    </ul>
-                </div>
-            </div>
-            <div class="grid-x">
-                <div class="col">
-                    <div id="results">
-                    </div>
-                </div>
             </div>
         </section>
         <section id="casualScn">
@@ -81,9 +61,9 @@
             </div>
             <div class="grid-x">
                 <div class="cell">
-                        <button class="button" type="button" id="nextBtn">Next</button>
-                    </div>
+                    <button class="button" type="button" id="nextBtn">Next</button>
                 </div>
+            </div>
             </div>
         </section>
         <section id="victoryScn">
@@ -93,7 +73,7 @@
             <div class="grid-x">
                 <div class="cell small-12 medium-6">
                     <div class="input-group">
-                        <span class="input-group-label" >Initials</span>
+                        <span class="input-group-label">Initials</span>
                         <input class="input-group-field" type="text" maxlength="2" id="playerInitials">
                         <div class="input-group-button">
                             <input type="submit" class="button" id="submitPlayerInitials" value="Submit">
