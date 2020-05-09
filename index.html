@@ -7,8 +7,7 @@
     <title>Quizzical</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
         integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
-    <link rel="stylesheet" href="./Assets/css/styles/style.css"> <!-- foundation-float.min.css: Compressed CSS with
-        legacy Float Grid -->
+    <link rel="stylesheet" href="./Assets/css/styles/style.css"> <!-- foundation-float.min.css: Compressed CSS with legacy Float Grid -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation-float.min.css"
         integrity="sha256-4ldVyEvC86/kae2IBWw+eJrTiwNEbUUTmN0zkP4luL4=" crossorigin="anonymous">
 
@@ -22,7 +21,7 @@
         integrity="sha256-F+9Ns8Z/1ZISonBbojH743hsmF3x3AlQdJEeD8DhQsE=" crossorigin="anonymous">
 </head>
 
-<body style="padding: 25px;">
+<body>
     <header class="top-bar">
         <div class="top-bar-left">
             <a class="title" href="./index.html">Quizzical</a>
@@ -31,7 +30,7 @@
     <main class="container" id="main">
         <section class="grid-x">
             <div class="cell small-12 medium-6">
-                <h5> welcome to Quizzical</h5>
+                <h2>Quizzical</h2>
             </div>
         </section>
         <section class="grid-x">
@@ -42,36 +41,34 @@
         </section>
         <section class="grid-x" id="startScn">
             <div class="cell auto">
-                <button class="button" type="button" id="startBtn" :hover>Start</button>
-
+                <button class="button" type="button" id="startBtn" :hover onclick="myFunction()">Start</button>
                 <button class="button" type="button" id="highScoresBtn" style="margin-left: 10px;">High Scores</button>
-
-              <!--  <button class="secondButton" type="button" id="secondQuiz">Second Quiz</button>-->
-
-            </div>
-            <div class="cell auto">
-            </div>
+          </div>
         </section>
-
         <section id="casualScn">
             <div class="grid-x">
-                <div style="font-weight: bold" class="cell small-12 medium-6" id="currentQuestion">
+                <div class="cell small-12 medium-6" id="currentQuestion">
                 </div>
             </div>
-            <div class="grid-x" id="answers">
-                <div class="cell small-12 medium-8">
-                    <fieldset>
-                        <input type="radio" id="choice1" name="choices[]"><label for="choice1"></label>
+            <div class="grid-y" id="answers">
+                <fieldset>
+                    <div class="cell">
+                        <input type="radio" id="choice1" name="choices[]" required><label for="choice1"></label>
+                    </div>
+                    <div class="cell">
                         <input type="radio" id="choice2" name="choices[]"><label for="choice2"></label>
+                    </div>
+                    <div class="cell">
                         <input type="radio" id="choice3" name="choices[]"><label for="choice3"></label>
+                    </div>
+                    <div class="cell">
                         <input type="radio" id="choice4" name="choices[]"><label for="choice4"></label>
-                    </fieldset>
-                </div>
+                    </div>
+                </fieldset>
             </div>
             <div class="grid-x">
-                <div  class="cell small-12 medium-6">
-                    <label style="font-weight: bold" id="results"></label>
-                    <label  style=" color:#1779ba" id="resultsWiki"></label>
+                <div class="cell small-12 medium-6">
+                    <label id="results"></label>
                 </div>
             </div>
             <div class="grid-x">
@@ -84,7 +81,6 @@
             </div>
             </div>
         </section>
-
         <section id="victoryScn">
             <div class="grid-x">
                 <h2 class="cell small-12 medium-6">You Win!!</h2>
@@ -93,37 +89,23 @@
                 <div class="cell small-12 medium-6">
                     <div class="input-group">
                         <span class="input-group-label">Initials</span>
-                        <input style="margin-left: 38px;" class="input-group-field" type="text" maxlength="2" id="playerInitials" required>
+                        <input class="input-group-field" type="text" maxlength="2" id="playerInitials">
                         <div class="input-group-button">
                             <input type="submit" class="button" id="submitPlayerInitials" value="Submit">
                         </div>
                     </div>
                 </div>
             </div>
-        <!--    <div class="grid-x">
+            <div class="grid-x">
                 <h3>You had <span id="score"></span> seconds remaining</h3>
-            </div>-->
+            </div>
             <div class="grid-x">
                 <div class="cell">
                     <button class="button" type="button" id="playAgainVSBtn">Play Again</button>
                     <button class="button" type="button" id="highScoresVSBtn">High Scores</button>
                 </div>
             </div>
-        </section>
-        <section id="defeatScn">
-            <div class="grid-x">
-                <h3 class="cell small-12 medium-6">You Lost</h3>
-            </div>
-            <div class="grid-x justify-content-center">
-                <h4 class="cell small-12 medium-6"> Please Try Again</h4>
-            </div>
-            <div class="grid-x">
-                <div class="cell">
-                    <button class="button" type="button" id="playAgainDSBtn">Try Again</button>
-                    <button class="button" type="button" id="highScoresDSBtn">High Scores</button>
-                </div>
-            </div>
-        </section>
+  </section>
         <section id="highScoreScn">
             <div class="grid-x">
                 <div class="cell small-12 medium-6">
@@ -149,16 +131,15 @@
             </div>
         </section>
     </main>
- <!--   <footer class="cell shrink footer">
+    <footer class="cell shrink footer">
         <div>
             <p>Copyright?</p>
         </div>
-    </footer>-->
+    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
         integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./Assets/js/script.js"></script>
 </body>
-
 </html>
