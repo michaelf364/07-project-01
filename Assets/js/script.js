@@ -8,6 +8,7 @@ var currentQuestion = document.querySelector("#currentQuestion");
 var answers = document.querySelector("#answers");
 var results = document.querySelector("#results");
 var nextBtn = document.querySelector("#nextBtn");
+var returnedResults = [];
 
 //victory screen
 var victoryScn = document.querySelector("#victoryScn");
@@ -75,9 +76,9 @@ var casualScores = [
 ];
 var question = "";
 var correctAnswer = "";
-var incorrectAnswers = [];
-var allAnswers = [];
-var shuffledAnswers = [];
+var incorrectAnswers = [""];
+var allAnswers = [""];
+var shuffledAnswers = [""];
 initialize();
 
 function initialize() {
@@ -121,52 +122,57 @@ function shuffle(array) {
 
     return array;
 }
-$("#startBtn").on("click", function () {
-    currentIndex = 0;
-    displayCasualScn(currentIndex);
-})
+$("#startBtn").on("click", function (event) {
+    event.preventDefault();
+    displayCasualScn();
+    $("#nextBtn").hide();
+});
 
 // Here we are building the URL we need to query the database
 // We then created an AJAX call
 
-function displayCasualScn(index) {
+function displayCasualScn() {
+    startScn.style.display = "none";
+    casualScn.style.display = "block";
+    victoryScn.style.display = "none";
+    defeatScn.style.display = "none";
+    highScoreScn.style.display = "none";
     var quizURL = "https://opentdb.com/api.php?amount=20&type=multiple";
-    answers.innerHTML = "";
+
     $.ajax({
         url: quizURL,
         method: "GET"
     }).then(function (response) {
-        currentQuestion.textContent = response.results[index].question;
-        for (let i = 0; i < 20; i++) {
-            // question = response.results[i].question;
-            correctAnswer = response.results[i].correct_answer;
-            incorrectAnswers = response.results[i].incorrect_answers;
-            allAnswers = incorrectAnswers.push(correctAnswer);
-            shuffledAnswers = shuffle(allAnswers);
-            var choices = document.createElement("li");
-            var choice = document.createElement("button");
-            choice.setAttribute("type", "button");
-            choice.setAttribute("id", i);
-            choice.textContent = shuffledAnswers[i];
-            choice.setAttribute("class", "button");
-            choices.appendChild(choice);
-            answers.appendChild(choices);
-            console.log(question);
-            console.log(shuffledAnswers);
-        }
+
+        returnedResults = response;
+        console.log(returnedResults);
+        populateQuestionScreen(currentIndex);
     });
 
-    // currentQuestion.textContent = questions[index].question;
-    // for (var i = 0; i < questions[index].choices.length; i++) {
-    //     var question = document.createElement("li");
-    //     var questionBtn = document.createElement("button");
-    //     questionBtn.setAttribute("type", "button");
-    //     questionBtn.setAttribute("id", i);
-    //     questionBtn.textContent = questions[index].choices[i];
-    //     questionBtn.setAttribute("class", "btn btn-primary");
-    //     question.appendChild(questionBtn);
-    //     answers.appendChild(question);
-    // }
+    answers.innerHTML = "";
+
+
+}
+
+function populateQuestionScreen(currentIndex) {
+    currentQuestion.textContent = returnedResults.results[currentIndex].question;
+    correctAnswer = returnedResults.results[currentIndex].correct_answer;
+    incorrectAnswers = returnedResults.results[currentIndex].incorrect_answers;
+    incorrectAnswers.push(correctAnswer);
+    allAnswers = incorrectAnswers;
+    shuffledAnswers = shuffle(allAnswers);
+    for (let i = 0; i < 4; i++) {
+        var choices = document.createElement("li");
+        var choice = document.createElement("button");
+        choice.setAttribute("type", "button");
+        choice.setAttribute("id", i);
+        choice.textContent = shuffledAnswers[i];
+        choice.setAttribute("class", "button");
+        choices.appendChild(choice);
+        answers.appendChild(choices);
+    }
+    console.log(question);
+    console.log(shuffledAnswers);
 }
 
 answers.addEventListener("click", function (playerAnswer) {
@@ -178,17 +184,36 @@ answers.addEventListener("click", function (playerAnswer) {
         }
         else {
             results.textContent = "Incorrect";
-            timeLeft -= 10;
             timeLeftSpan.textContent = timeLeft;
         }
-        setTimeout(clearResults, 1500)
-        currentIndex++;
-        if (currentIndex === questions.length) {
-            clearInterval(timer);
+
+        if (currentIndex === returnedResults.results.length) {
             displayVictoryScreen();
             checkScore();
             return;
         }
-        displayQuestionScn(currentIndex);
+
     }
 });
+
+$("#nextBtn").on("click", function (event) {
+    event.preventDefault();
+    currentIndex++;
+    populateQuestionScreen(currentIndex);
+    $("#nextBtn").hide();
+})
+
+
+function checkAnswer(currentIndex, answer) {
+    var userAnswer = parseInt(answer);
+    var correctAnswer = parseInt(questions[currentIndex].correctAnswer)
+    var isCorrect = false;
+    if (userAnswer === correctAnswer) {
+        isCorrect = true;
+    }
+    return isCorrect;
+}
+
+function clearResults() {
+    results.textContent = "";
+}
