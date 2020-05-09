@@ -62,10 +62,9 @@ var correctchoice
 function initialize() {
     //loadScores();
     currentIndex = 1;
-    // startScn.style.display = "block";
+    startScn.style.display = "block";
     casualScn.style.display = "none";
     victoryScn.style.display = "none";
-    defeatScn.style.display = "none";
     highScoreScn.style.display = "none";
     counterOfCorrectAnswer = 0;
     counterOfNotCorrectAnswer = 0;
