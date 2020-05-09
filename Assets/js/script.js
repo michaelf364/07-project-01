@@ -297,7 +297,7 @@ function checkAnswer(selectedAnswer){
     nextBtn.disabled = false;
 }
 
-////
+//// it will work on the local machine and  need to be replace 
 function getWekiInfo(correctAnswer){
     var wekiInfo='';
     var api = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=" + correctAnswer;
