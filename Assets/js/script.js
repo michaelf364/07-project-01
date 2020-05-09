@@ -102,7 +102,6 @@ function initialize() {
             console.log(data);
         }
     });
-
 }
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -150,8 +149,6 @@ function displayCasualScn() {
     });
 
     answers.innerHTML = "";
-
-
 }
 
 function populateQuestionScreen(currentIndex) {
@@ -161,7 +158,7 @@ function populateQuestionScreen(currentIndex) {
     incorrectAnswers.push(correctAnswer);
     allAnswers = incorrectAnswers;
     shuffledAnswers = shuffle(allAnswers);
-    for (let i = 0; i < 4; i++) {
+    for (var i = 0; i < 4; i++) {
         var choices = document.createElement("li");
         var choice = document.createElement("button");
         choice.setAttribute("type", "button");
@@ -175,7 +172,8 @@ function populateQuestionScreen(currentIndex) {
     console.log(shuffledAnswers);
 }
 
-answers.addEventListener("click", function (playerAnswer) {
+$("#answers").on("click", function(event) {
+    event.preventDefault();
     if (playerAnswer.target.matches("button")) {
         var answer = playerAnswer.target.getAttribute("id");
         var isCorrect = checkAnswer(currentIndex, answer);
@@ -187,26 +185,27 @@ answers.addEventListener("click", function (playerAnswer) {
             timeLeftSpan.textContent = timeLeft;
         }
 
-        if (currentIndex === returnedResults.results.length) {
-            displayVictoryScreen();
-            checkScore();
-            return;
-        }
+
 
     }
-});
+})
 
 $("#nextBtn").on("click", function (event) {
     event.preventDefault();
     currentIndex++;
     populateQuestionScreen(currentIndex);
     $("#nextBtn").hide();
+    if (currentIndex === returnedResults.results.length) {
+        displayVictoryScreen();
+        checkScore();
+        return;
+    }
 })
 
 
 function checkAnswer(currentIndex, answer) {
     var userAnswer = parseInt(answer);
-    var correctAnswer = parseInt(questions[currentIndex].correctAnswer)
+    var correctAnswer = parseInt(returnedResults.results[currentIndex].correct_answer);
     var isCorrect = false;
     if (userAnswer === correctAnswer) {
         isCorrect = true;
@@ -216,4 +215,44 @@ function checkAnswer(currentIndex, answer) {
 
 function clearResults() {
     results.textContent = "";
+}
+
+function checkScore() {
+    var highScore = {
+        name: "",
+        score: timeLeft
+    };
+
+    for (var i = 0; i < highScores.length; i++) {
+        if (timeLeft > parseInt(highScores[i].score)) {
+            submitBtn.addEventListener("click", function () {
+                highScores.name = nameInput;
+                console.log(highScores.name);
+            })
+            highScores.splice(i, 0, highScore);
+            highScores.splice(5, 1);
+            saveScores();
+            i = highScores.length;
+        }
+    }
+}
+
+function renderHighScores() {
+    highScoresList.innerHTML = "";
+    for (var i = 0; i < highScores.length; i++) {
+        var score = document.createElement("li");
+        score.textContent = (" " + highScores[i].name + ":  " + highScores[i].score);
+        highScoresList.appendChild(score);
+    }
+}
+
+function saveScores() {
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+}
+
+function loadScores() {
+    var tempScores = JSON.parse(localStorage.getItem("highScores"));
+    if (tempScores !== null) {
+        highScores = tempScores;
+    }
 }
