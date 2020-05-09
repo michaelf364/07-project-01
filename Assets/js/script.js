@@ -105,6 +105,8 @@ $("#startBtn").on("click", function () {
 })
 
 
+
+
 // document.createElement and use that element 
 
 // for loop creating a list with those questions and placing that into the array
