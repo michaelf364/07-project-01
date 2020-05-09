@@ -30,7 +30,7 @@ var currentQuestion = document.querySelector("#currentQuestion");
 var answers = document.querySelector("#answers");
 
 var results = document.querySelector('#results')
-var resultsWekiInfo = document.querySelector('#resultsWiki')
+var resultsWikiInfo = document.querySelector('#resultsWiki')
 var casualScn = document.querySelector("#casualScn");
 var nextBtn = document.querySelector("#nextBtn");
 
@@ -42,20 +42,10 @@ var score = document.querySelector("#score");
 var playAgainVSBtn = document.querySelector("#playAgainVSBtn");
 var highScoresVSBtn = document.querySelector("#highScoresVSBtn");
 
-//defeat screen
-var defeatScn = document.querySelector("#defeatScn");
-var playAgainDSBtn = document.querySelector("#playAgainDSBtn");
-var highScoresDSBtn = document.querySelector("#highScoresDSBtn");
-
 //high score screen
 var highScoreScn = document.querySelector("#highScoreScn");
 var highScoresList = document.querySelector("#highScoresList");
 var backButton = document.querySelector("#backButton");
-
-
-
-
-
 
 var correctchoice
 
@@ -79,7 +69,7 @@ function initialize() {
 
 
 function getNextQuestion() {
-    resultsWekiInfo.innerHTML = '';
+    resultsWikiInfo.innerHTML = '';
     nextBtn.disabled = true;
     var api = "https://opentdb.com/api.php?amount=1&difficulty=medium&type=multiple";
     $.ajax({
@@ -135,10 +125,9 @@ function getNextQuestion() {
 }
 
 function startAction() {
-    resultsWekiInfo.innerHTML = '';
+    resultsWikiInfo.innerHTML = '';
     casualScn.style.display = "block";
     victoryScn.style.display = "none";
-    defeatScn.style.display = "none";
     highScoreScn.style.display = "none";
     $("#nextBtn").show();
     $("#currentQuestion").show();
@@ -189,7 +178,7 @@ function perviewHighScore() {
 
     }
     localStorage.setItem("highScores", JSON.stringify(arrayOfScoresObj));
-    
+
 
 }
 
@@ -204,7 +193,7 @@ function loadHighScores() {
 
 $("#startBtn").on("click", function () {
     startScn.style.display = "none";
-    resultsWekiInfo.innerHTML = '';
+    resultsWikiInfo.innerHTML = '';
     startAction();
 });
 
@@ -240,7 +229,6 @@ $("#nextBtn").on("click", function () {
     else {
         casualScn.style.display = "none";
         victoryScn.style.display = "block";
-        defeatScn.style.display = "none";
         highScoreScn.style.display = "none";
         $("#currentQuestion").hide();
         $("#answers").hide();
@@ -249,13 +237,13 @@ $("#nextBtn").on("click", function () {
 
 
 
-        
+
         results.innerHTML = 'Test is finished  your  result is  ' + resultPerc + ' %  >>>  ' + counterOfCorrectAnswer + ' correct answers  and ' + counterOfNotCorrectAnswer + ' no correct answer';
         results.style.color = "black";
         victoryScn.style.display = "contents";
 
     }
-    resultsWekiInfo.innerHTML = '';
+    resultsWikiInfo.innerHTML = '';
 });
 
 
@@ -333,13 +321,13 @@ function getWekiInfo(correctAnswer) {
                 wekiInfo = 'No Data Found from weki';
             }
 
-            resultsWekiInfo.innerHTML = 'correct Answer Is  :  ' + correctAnswer + '>>> ' + wekiInfo
+            resultsWikiInfo.innerHTML = 'correct Answer Is  :  ' + correctAnswer + '>>> ' + wekiInfo
 
         },
 
         error: function (response) {
             wekiInfo = 'No Data Found from weki';
-            resultsWekiInfo.innerHTML = wekiInfo
+            resultsWikiInfo.innerHTML = wekiInfo
 
         }
 
