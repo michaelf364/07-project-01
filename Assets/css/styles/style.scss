@@ -1,5 +1,13 @@
 @import './variables';
 
+// @include foundation-grid;
+// @include foundation-flex-grid;
+
+// Added a mixin here for the answers
+@mixin flex-grid-column {
+    
+}
+
 // Add parameters to this that we can change
 // Display flex and writing one line of code can become extremely helpful for lengthy projects
 @mixin flexCenter($direction) {
@@ -41,7 +49,7 @@ header {
     @include flexCenter(column); 
     justify-content: center;
     background-color: wheat;
-    height: 50vh;
+    height: 100vh;
     align-items: center;
     padding: 0;
     margin: 0;
@@ -53,14 +61,6 @@ header {
          color: black;
      }
     }
-
-
-
-         
-
-
-
-
 
 // To create a variable with JavaScript and have it work with SASS
 // Created a separate button for the two quizzes

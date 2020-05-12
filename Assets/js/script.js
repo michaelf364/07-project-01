@@ -2,7 +2,6 @@ $(document).ready(function () {
     initialize();
 });
 //member variables
-
 var counterOfCorrectAnswer = 0;
 var counterOfNotCorrectAnswer = 0;
 var answerValue;
@@ -10,14 +9,6 @@ var answerInformation;
 var currentIndex = 0;
 var resultPerc;
 var arrayOfScoresObj = [];
-
-
-
-
-
-
-
-
 
 //start screen
 var startScn = document.querySelector("#startScn");
@@ -28,7 +19,6 @@ var highScoresBtn = document.querySelector("#highScoresBtn");
 //question screen
 var currentQuestion = document.querySelector("#currentQuestion");
 var answers = document.querySelector("#answers");
-
 var results = document.querySelector('#results')
 var resultsWikiInfo = document.querySelector('#resultsWiki')
 var casualScn = document.querySelector("#casualScn");
@@ -48,7 +38,7 @@ var highScoresList = document.querySelector("#highScoresList");
 var backButton = document.querySelector("#backButton");
 var highScores = [];
 
-var correctchoice
+var correctchoice;
 
 var countOFPlayers = countOFPlayers++;
 //defeat screen
@@ -75,11 +65,7 @@ function initialize() {
     answerInformation;
     currentIndex = 0;
     resultPerc;
-
-
 }
-
-
 
 function getNextQuestion() {
     resultsWikiInfo.innerHTML = '';
@@ -106,26 +92,20 @@ function getNextQuestion() {
             for (var i = 1; i < 5; i++) {
                 if (i === answerValue) {
                     document.querySelector('#choice' + i).nextElementSibling.textContent = correctchoice;
-                }
-
-                else {
+                } else {
                     if (choice1Done === 0) {
                         choice1Done = 1;
                         document.querySelector('#choice' + i).nextElementSibling.textContent = choice1;
-                    }
-                    else {
+                    } else {
                         if (choice1Done === 1) {
                             choice1Done = 2;
                             document.querySelector('#choice' + i).nextElementSibling.textContent = choice2;
-                        }
-                        else {
+                        } else {
                             if (choice1Done === 2) {
                                 choice1Done = 3;
                                 document.querySelector('#choice' + i).nextElementSibling.textContent = choice3;
                             }
-
                         }
-
                     }
                 }
             }
@@ -133,7 +113,6 @@ function getNextQuestion() {
                 document.getElementById('choice' + i).disabled = false;
                 document.getElementById('choice' + i).checked = false;
             }
-
         });
 }
 
@@ -148,10 +127,6 @@ function startAction() {
     getNextQuestion();
     currentIndex = 1;
 }
-
-
-
-
 $("#submitPlayerInitials").on("click", function () {
   
     if( pName.value==='')
@@ -167,6 +142,7 @@ $("#submitPlayerInitials").on("click", function () {
         alert('Successfully adding your score');
     }
 })
+
 $("#highScoresVSBtn").on("click", function () {
     perviewHighScore();
 });
@@ -184,6 +160,7 @@ function perviewHighScore(){
         highScores = tempScores;
         alert(JSON.stringify(highScores));
     }
+
 }
 
 $("#startBtn").on("click", function () {
@@ -225,7 +202,6 @@ $("#nextBtn").on("click", function () {
         $("#answers").hide();
         $("#nextBtn").hide();
         $("#startBtn").show();
-
         resultPerc= 100 -(counterOfNotCorrectAnswer*20);
         results.innerHTML = 'Test is finished  your  result is  ' + resultPerc + ' %  >>>  '+counterOfCorrectAnswer  +' correct answers  and '+counterOfNotCorrectAnswer+' no correct answer' ;
         results.style.color = "black";
@@ -280,6 +256,21 @@ function checkAnswer(selectedAnswer) {
     results.style.color = color;
     nextBtn.disabled = false;
 }
-
-
+function getwikiInfo(correctAnswer) {
+    var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=" + correctAnswer;
+    var encodedUrl = encodeURIComponent(queryUrl);
+    $.ajax({
+        type: 'GET',
+        contentType: 'application/json',
+        url: 'https://corsbridge2.herokuapp.com/' + encodedUrl,
+        success: function (data) {
+            console.log(data);
+            var returnedLink = data.query.pages;
+            var returnedKeys = Object.keys(returnedLink)[0];
+            console.log(returnedLink[returnedKeys].extract);
+            var extractedText = returnedLink[returnedKeys].extract;
+            resultsWikiInfo.innerHTML = 'correct Answer Is  :  ' + correctAnswer + '>>> ' + extractedText;
+        }
+    });
+}
 
