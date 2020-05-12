@@ -2,7 +2,6 @@ $(document).ready(function () {
     initialize();
 });
 //member variables
-
 var counterOfCorrectAnswer = 0;
 var counterOfNotCorrectAnswer = 0;
 var answerValue;
@@ -20,7 +19,6 @@ var highScoresBtn = document.querySelector("#highScoresBtn");
 //question screen
 var currentQuestion = document.querySelector("#currentQuestion");
 var answers = document.querySelector("#answers");
-
 var results = document.querySelector('#results')
 var resultsWikiInfo = document.querySelector('#resultsWiki')
 var casualScn = document.querySelector("#casualScn");
@@ -39,7 +37,7 @@ var highScoreScn = document.querySelector("#highScoreScn");
 var highScoresList = document.querySelector("#highScoresList");
 var backButton = document.querySelector("#backButton");
 
-var correctchoice
+var correctchoice;
 
 function initialize() {
     //loadScores();
@@ -54,11 +52,7 @@ function initialize() {
     answerInformation;
     currentIndex = 0;
     resultPerc;
-
-
 }
-
-
 
 function getNextQuestion() {
     resultsWikiInfo.innerHTML = '';
@@ -85,26 +79,20 @@ function getNextQuestion() {
             for (var i = 1; i < 5; i++) {
                 if (i === answerValue) {
                     document.querySelector('#choice' + i).nextElementSibling.textContent = correctchoice;
-                }
-
-                else {
+                } else {
                     if (choice1Done === 0) {
                         choice1Done = 1;
                         document.querySelector('#choice' + i).nextElementSibling.textContent = choice1;
-                    }
-                    else {
+                    } else {
                         if (choice1Done === 1) {
                             choice1Done = 2;
                             document.querySelector('#choice' + i).nextElementSibling.textContent = choice2;
-                        }
-                        else {
+                        } else {
                             if (choice1Done === 2) {
                                 choice1Done = 3;
                                 document.querySelector('#choice' + i).nextElementSibling.textContent = choice3;
                             }
-
                         }
-
                     }
                 }
             }
@@ -112,7 +100,6 @@ function getNextQuestion() {
                 document.getElementById('choice' + i).disabled = false;
                 document.getElementById('choice' + i).checked = false;
             }
-
         });
 }
 
@@ -128,7 +115,6 @@ function startAction() {
     currentIndex = 1;
 }
 
-
 $("#submitPlayerInitials").on("click", function () {
     var nameOfPlayer = pName.value;
     var scoreObj = {
@@ -138,25 +124,18 @@ $("#submitPlayerInitials").on("click", function () {
     arrayOfScoresObj.push(scoreObj);
 });
 
-
 $("#highScoresVSBtn").on("click", function () {
     perviewHighScore();
 
 });
 
-
 $("#highScoresBtn").on("click", function () {
     perviewHighScore();
 });
 
-
-
 $("#highScoresDSBtn").on("click", function () {
     perviewHighScore();
 });
-
-
-
 
 function perviewHighScore() {
     var text = '';
@@ -167,18 +146,11 @@ function perviewHighScore() {
 
     }
     localStorage.setItem("highScores", JSON.stringify(arrayOfScoresObj));
-
-
 }
 
 function loadHighScores() {
     JSON.parse(localStorage.getItem("highScores"));
-
 }
-
-
-
-
 
 $("#startBtn").on("click", function () {
     startScn.style.display = "none";
@@ -204,10 +176,6 @@ $("#playAgainDSBtn").on("click", function () {
     // startAction();
 });
 
-
-
-
-
 $("#nextBtn").on("click", function () {
     if (currentIndex < 20) {
         $("#answers").show();
@@ -223,14 +191,9 @@ $("#nextBtn").on("click", function () {
         $("#answers").hide();
         $("#nextBtn").hide();
         $("#startBtn").show();
-
-
-
-
         results.innerHTML = 'Test is finished  your  result is  ' + resultPerc + ' %  >>>  ' + counterOfCorrectAnswer + ' correct answers  and ' + counterOfNotCorrectAnswer + ' no correct answer';
         results.style.color = "black";
         victoryScn.style.display = "contents";
-
     }
     resultsWikiInfo.innerHTML = '';
 });
@@ -289,6 +252,11 @@ function getwikiInfo(correctAnswer) {
         url: 'https://corsbridge2.herokuapp.com/' + encodedUrl,
         success: function (data) {
             console.log(data);
+            var returnedLink = data.query.pages;
+            var returnedKeys = Object.keys(returnedLink)[0];
+            console.log(returnedLink[returnedKeys].extract);
+            var extractedText = returnedLink[returnedKeys].extract;
+            resultsWikiInfo.innerHTML = 'correct Answer Is  :  ' + correctAnswer + '>>> ' + extractedText;
         }
     });
 }
