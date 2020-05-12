@@ -32,6 +32,8 @@ var score = document.querySelector("#score");
 var playAgainVSBtn = document.querySelector("#playAgainVSBtn");
 var highScoresVSBtn = document.querySelector("#highScoresVSBtn");
 
+
+
 //high score screen
 var highScoreScn = document.querySelector("#highScoreScn");
 var highScoresList = document.querySelector("#highScoresList");
@@ -202,9 +204,9 @@ $("#nextBtn").on("click", function () {
         $("#answers").hide();
         $("#nextBtn").hide();
         $("#startBtn").show();
-        resultPerc= 100 -(counterOfNotCorrectAnswer*20);
-        results.innerHTML = 'Test is finished  your  result is  ' + resultPerc + ' %  >>>  '+counterOfCorrectAnswer  +' correct answers  and '+counterOfNotCorrectAnswer+' no correct answer' ;
-        results.style.color = "black";
+        resultPerc = 100 - (counterOfNotCorrectAnswer * 20);
+        score.innerHTML = 'The test is finished and you scored a ' + resultPerc + '%. You got '+counterOfCorrectAnswer  +' correct and '+counterOfNotCorrectAnswer+' incorrect.' ;
+        score.style.color = "black";
           if(resultPerc>=50)
           victoryScn.style.display ="contents";
             else
