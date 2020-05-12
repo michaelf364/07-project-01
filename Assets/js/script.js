@@ -46,7 +46,20 @@ var highScoresVSBtn = document.querySelector("#highScoresVSBtn");
 var highScoreScn = document.querySelector("#highScoreScn");
 var highScoresList = document.querySelector("#highScoresList");
 var backButton = document.querySelector("#backButton");
+var highScores = [];
 
+var correctchoice
+
+var countOFPlayers = countOFPlayers++;
+//defeat screen
+var defeatScn = document.querySelector("#defeatScn");
+var playAgainDSBtn = document.querySelector("#playAgainDSBtn");
+var highScoresDSBtn = document.querySelector("#highScoresDSBtn");
+//high score screen
+var highScoreScn = document.querySelector("#highScoreScn");
+var highScoresList = document.querySelector("#highScoresList");
+var backButton = document.querySelector("#backButton");
+var countOFPlayers=0;
 var correctchoice
 
 function initialize() {
@@ -139,57 +152,39 @@ function startAction() {
 
 
 
-
 $("#submitPlayerInitials").on("click", function () {
-    var nameOfPlayer = pName.value;
-    var scoreObj = {
-        name: nameOfPlayer,
-        score: resultPerc
+  
+    if( pName.value==='')
+        alert('Please enter your name !')
+    else {
+        ;
+        var nameOfPlayer = pName.value;
+        var scoreObj = {
+            name: nameOfPlayer,
+            score: resultPerc
+        };
+        localStorage.setItem("player", JSON.stringify(scoreObj));
+        alert('Successfully adding your score');
     }
-    arrayOfScoresObj.push(scoreObj);
-});
-
-
+})
 $("#highScoresVSBtn").on("click", function () {
     perviewHighScore();
-
 });
-
-
 $("#highScoresBtn").on("click", function () {
     perviewHighScore();
 });
-
-
-
 $("#highScoresDSBtn").on("click", function () {
     perviewHighScore();
 });
 
-
-
-
-function perviewHighScore() {
-    var text = '';
-    if (arrayOfScoresObj.length > 0) {
-        for (var i = 0; i < arrayOfScoresObj.length; i++) {
-            text = text.concat('Player : ' + arrayOfScoresObj[i].name + ' Score ' + arrayOfScoresObj[i].score + ' |');
-        }
-
+function perviewHighScore(){
+   
+    var tempScores = JSON.parse(localStorage.getItem("player"));
+    if (tempScores !== null) {
+        highScores = tempScores;
+        alert(JSON.stringify(highScores));
     }
-    localStorage.setItem("highScores", JSON.stringify(arrayOfScoresObj));
-
-
 }
-
-function loadHighScores() {
-    JSON.parse(localStorage.getItem("highScores"));
-
-}
-
-
-
-
 
 $("#startBtn").on("click", function () {
     startScn.style.display = "none";
@@ -215,12 +210,8 @@ $("#playAgainDSBtn").on("click", function () {
     // startAction();
 });
 
-
-
-
-
 $("#nextBtn").on("click", function () {
-    if (currentIndex < 20) {
+    if (currentIndex < 5) {
         $("#answers").show();
         results.innerHTML = '';
         getNextQuestion();
@@ -235,18 +226,17 @@ $("#nextBtn").on("click", function () {
         $("#nextBtn").hide();
         $("#startBtn").show();
 
-
-
-
-        results.innerHTML = 'Test is finished  your  result is  ' + resultPerc + ' %  >>>  ' + counterOfCorrectAnswer + ' correct answers  and ' + counterOfNotCorrectAnswer + ' no correct answer';
+        resultPerc= 100 -(counterOfNotCorrectAnswer*20);
+        results.innerHTML = 'Test is finished  your  result is  ' + resultPerc + ' %  >>>  '+counterOfCorrectAnswer  +' correct answers  and '+counterOfNotCorrectAnswer+' no correct answer' ;
         results.style.color = "black";
-        victoryScn.style.display = "contents";
-
-    }
-    resultsWikiInfo.innerHTML = '';
+          if(resultPerc>=50)
+          victoryScn.style.display ="contents";
+            else
+            victoryScn.style.display ="contents";
+        // defeatScn
+ }
+ resultsWikiInfo.innerHTML='';
 });
-
-
 
 
 // select choice event
@@ -283,7 +273,7 @@ function checkAnswer(selectedAnswer) {
         answerStatus = "Wrong Answer ! ";
         counterOfNotCorrectAnswer++;
         color = 'red'
-        getWekiInfo(correctchoice);
+        getwikiInfo(correctchoice);
     }
 
     results.innerHTML = answerStatus;
@@ -291,59 +281,5 @@ function checkAnswer(selectedAnswer) {
     nextBtn.disabled = false;
 }
 
-//// it will work on the local machine and  need to be replace 
-function getWekiInfo(correctAnswer) {
-    var wekiInfo = '';
-    var api = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=" + correctAnswer;
 
-    $.ajax({
-        url: api,
-        jsonp: "callback",
-        dataType: 'jsonp',
-        data: {
-            action: "query",
-            list: "search",
-            srsearch: "javascript",
-            format: "json"
-        },
-        xhrFields: { withCredentials: true },
-        success: function (response) {
-            var jsonResponseArr = response.query.pages;
-            var jsonResponseStr = JSON.stringify(jsonResponseArr)
-            var res = jsonResponseStr.split(",");
-            if (res != null) {
-                //  var wekiInfoRsp = res[3] == undefined ? '' : res[3] + ',' + res[4] == undefined ? '' : res[4] + ',' + res[5] == undefined ? '' : res[5] + ',' + res[6] == undefined ? '' : res[6];
-                var wekiResp = res[3] + ',' + res[4] + ',' + res[5] + ',' + res[6];
-                console.log(wekiResp);
-                wekiInfo = wekiResp.replace('"extract"', ' ');
-            }
-            else {
-                wekiInfo = 'No Data Found from weki';
-            }
-
-            resultsWikiInfo.innerHTML = 'correct Answer Is  :  ' + correctAnswer + '>>> ' + wekiInfo
-
-        },
-
-        error: function (response) {
-            wekiInfo = 'No Data Found from weki';
-            resultsWikiInfo.innerHTML = wekiInfo
-
-        }
-
-    });
-
-}
-
-
-var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=Stack%20Overflow";
-var encodedUrl = encodeURIComponent(queryUrl);
-$.ajax({
-    type: 'GET',
-    contentType: 'application/json',
-    url: 'https://corsbridge2.herokuapp.com/' + encodedUrl,
-    success: function (data) {
-        console.log(data);
-    }
-});
 
