@@ -283,59 +283,16 @@ function checkAnswer(selectedAnswer) {
     nextBtn.disabled = false;
 }
 
-//// it will work on the local machine and  need to be replace 
 function getWekiInfo(correctAnswer) {
-    var wekiInfo = '';
-    var api = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=" + correctAnswer;
-
+    var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=" + correctAnswer;
+    var encodedUrl = encodeURIComponent(queryUrl);
     $.ajax({
-        url: api,
-        jsonp: "callback",
-        dataType: 'jsonp',
-        data: {
-            action: "query",
-            list: "search",
-            srsearch: "javascript",
-            format: "json"
-        },
-        xhrFields: { withCredentials: true },
-        success: function (response) {
-            var jsonResponseArr = response.query.pages;
-            var jsonResponseStr = JSON.stringify(jsonResponseArr)
-            var res = jsonResponseStr.split(",");
-            if (res != null) {
-                //  var wekiInfoRsp = res[3] == undefined ? '' : res[3] + ',' + res[4] == undefined ? '' : res[4] + ',' + res[5] == undefined ? '' : res[5] + ',' + res[6] == undefined ? '' : res[6];
-                var wekiResp = res[3] + ',' + res[4] + ',' + res[5] + ',' + res[6];
-                console.log(wekiResp);
-                wekiInfo = wekiResp.replace('"extract"', ' ');
-            }
-            else {
-                wekiInfo = 'No Data Found from weki';
-            }
-
-            resultsWikiInfo.innerHTML = 'correct Answer Is  :  ' + correctAnswer + '>>> ' + wekiInfo
-
-        },
-
-        error: function (response) {
-            wekiInfo = 'No Data Found from weki';
-            resultsWikiInfo.innerHTML = wekiInfo
-
+        type: 'GET',
+        contentType: 'application/json',
+        url: 'https://corsbridge2.herokuapp.com/' + encodedUrl,
+        success: function (data) {
+            console.log(data);
         }
-
     });
-
 }
-
-
-var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=Stack%20Overflow";
-var encodedUrl = encodeURIComponent(queryUrl);
-$.ajax({
-    type: 'GET',
-    contentType: 'application/json',
-    url: 'https://corsbridge2.herokuapp.com/' + encodedUrl,
-    success: function (data) {
-        console.log(data);
-    }
-});
 
