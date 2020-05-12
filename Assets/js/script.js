@@ -129,9 +129,6 @@ function startAction() {
 }
 
 
-
-
-
 $("#submitPlayerInitials").on("click", function () {
     var nameOfPlayer = pName.value;
     var scoreObj = {
