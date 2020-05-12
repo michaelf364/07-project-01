@@ -36,8 +36,21 @@ var highScoresVSBtn = document.querySelector("#highScoresVSBtn");
 var highScoreScn = document.querySelector("#highScoreScn");
 var highScoresList = document.querySelector("#highScoresList");
 var backButton = document.querySelector("#backButton");
+var highScores = [];
 
 var correctchoice;
+
+var countOFPlayers = countOFPlayers++;
+//defeat screen
+var defeatScn = document.querySelector("#defeatScn");
+var playAgainDSBtn = document.querySelector("#playAgainDSBtn");
+var highScoresDSBtn = document.querySelector("#highScoresDSBtn");
+//high score screen
+var highScoreScn = document.querySelector("#highScoreScn");
+var highScoresList = document.querySelector("#highScoresList");
+var backButton = document.querySelector("#backButton");
+var countOFPlayers=0;
+var correctchoice
 
 function initialize() {
     //loadScores();
@@ -114,42 +127,40 @@ function startAction() {
     getNextQuestion();
     currentIndex = 1;
 }
-
 $("#submitPlayerInitials").on("click", function () {
-    var nameOfPlayer = pName.value;
-    var scoreObj = {
-        name: nameOfPlayer,
-        score: resultPerc
+  
+    if( pName.value==='')
+        alert('Please enter your name !')
+    else {
+        ;
+        var nameOfPlayer = pName.value;
+        var scoreObj = {
+            name: nameOfPlayer,
+            score: resultPerc
+        };
+        localStorage.setItem("player", JSON.stringify(scoreObj));
+        alert('Successfully adding your score');
     }
-    arrayOfScoresObj.push(scoreObj);
-});
+})
 
 $("#highScoresVSBtn").on("click", function () {
     perviewHighScore();
-
 });
-
 $("#highScoresBtn").on("click", function () {
     perviewHighScore();
 });
-
 $("#highScoresDSBtn").on("click", function () {
     perviewHighScore();
 });
 
-function perviewHighScore() {
-    var text = '';
-    if (arrayOfScoresObj.length > 0) {
-        for (var i = 0; i < arrayOfScoresObj.length; i++) {
-            text = text.concat('Player : ' + arrayOfScoresObj[i].name + ' Score ' + arrayOfScoresObj[i].score + ' |');
-        }
-
+function perviewHighScore(){
+   
+    var tempScores = JSON.parse(localStorage.getItem("player"));
+    if (tempScores !== null) {
+        highScores = tempScores;
+        alert(JSON.stringify(highScores));
     }
-    localStorage.setItem("highScores", JSON.stringify(arrayOfScoresObj));
-}
 
-function loadHighScores() {
-    JSON.parse(localStorage.getItem("highScores"));
 }
 
 $("#startBtn").on("click", function () {
@@ -177,7 +188,7 @@ $("#playAgainDSBtn").on("click", function () {
 });
 
 $("#nextBtn").on("click", function () {
-    if (currentIndex < 20) {
+    if (currentIndex < 5) {
         $("#answers").show();
         results.innerHTML = '';
         getNextQuestion();
@@ -191,14 +202,17 @@ $("#nextBtn").on("click", function () {
         $("#answers").hide();
         $("#nextBtn").hide();
         $("#startBtn").show();
-        results.innerHTML = 'Test is finished  your  result is  ' + resultPerc + ' %  >>>  ' + counterOfCorrectAnswer + ' correct answers  and ' + counterOfNotCorrectAnswer + ' no correct answer';
+        resultPerc= 100 -(counterOfNotCorrectAnswer*20);
+        results.innerHTML = 'Test is finished  your  result is  ' + resultPerc + ' %  >>>  '+counterOfCorrectAnswer  +' correct answers  and '+counterOfNotCorrectAnswer+' no correct answer' ;
         results.style.color = "black";
-        victoryScn.style.display = "contents";
-    }
-    resultsWikiInfo.innerHTML = '';
+          if(resultPerc>=50)
+          victoryScn.style.display ="contents";
+            else
+            victoryScn.style.display ="contents";
+        // defeatScn
+ }
+ resultsWikiInfo.innerHTML='';
 });
-
-
 
 
 // select choice event
@@ -242,7 +256,6 @@ function checkAnswer(selectedAnswer) {
     results.style.color = color;
     nextBtn.disabled = false;
 }
-
 function getwikiInfo(correctAnswer) {
     var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=" + correctAnswer;
     var encodedUrl = encodeURIComponent(queryUrl);
