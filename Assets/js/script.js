@@ -77,10 +77,10 @@ function getNextQuestion() {
             var incorrectAnswer = reponse.incorrect_answers;
             var question = reponse.question;
             var answer = reponse.correct_answer;
-            correctchoice = answer;
-            var choice1 = incorrectAnswer[0];
-            var choice2 = incorrectAnswer[1];
-            var choice3 = incorrectAnswer[2];
+            correctchoice = JSON.stringify(answer);
+            var choice1 = JSON.stringify(incorrectAnswer[0]);
+            var choice2 = JSON.stringify(incorrectAnswer[1]);
+            var choice3 = JSON.stringify(incorrectAnswer[2]);
             document.querySelector('#currentQuestion').innerHTML = 'Q' + currentIndex + ': ' + question;
             answerValue = Math.floor((Math.random() * 4) + 1);
             var choice1Done = 0;
@@ -197,9 +197,9 @@ $("#nextBtn").on("click", function () {
         $("#answers").hide();
         $("#nextBtn").hide();
         $("#startBtn").show();
-        resultPerc= 100 -(counterOfNotCorrectAnswer*20);
-        results.innerHTML = 'Test is finished  your  result is  ' + resultPerc + ' %  >>>  '+counterOfCorrectAnswer  +' correct answers  and '+counterOfNotCorrectAnswer+' no correct answer' ;
-        results.style.color = "black";
+        resultPerc = 100 - (counterOfNotCorrectAnswer * 20);
+        score.innerHTML = 'The test is finished and you scored a ' + resultPerc + '%. You got '+counterOfCorrectAnswer  +' correct and '+counterOfNotCorrectAnswer+' incorrect.' ;
+        score.style.color = "black";
           if(resultPerc>=50)
           victoryScn.style.display ="contents";
             else
