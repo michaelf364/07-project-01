@@ -229,9 +229,6 @@ $("#choice4").on("click", function () {
     checkAnswer(4);
 });
 
-
-
-
 function checkAnswer(selectedAnswer) {
 
     for (var i = 1; i < 5; i++) {
@@ -243,15 +240,14 @@ function checkAnswer(selectedAnswer) {
     if (answerValue === selectedAnswer) {
         answerStatus = "Correct  answer";
         counterOfCorrectAnswer++;
-        color = 'green'
+        color = 'green';
     }
     else {
         answerStatus = "Wrong Answer ! ";
         counterOfNotCorrectAnswer++;
-        color = 'red'
-        getwikiInfo(correctchoice);
+        color = 'red';
     }
-
+    getwikiInfo(correctchoice);
     results.innerHTML = answerStatus;
     results.style.color = color;
     nextBtn.disabled = false;
