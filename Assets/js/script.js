@@ -84,10 +84,10 @@ function getNextQuestion() {
             var incorrectAnswer = reponse.incorrect_answers;
             var question = reponse.question;
             var answer = reponse.correct_answer;
-            correctchoice = answer;
-            var choice1 = incorrectAnswer[0];
-            var choice2 = incorrectAnswer[1];
-            var choice3 = incorrectAnswer[2];
+            correctchoice = JSON.stringify(answer);
+            var choice1 = JSON.stringify(incorrectAnswer[0]);
+            var choice2 = JSON.stringify(incorrectAnswer[1]);
+            var choice3 = JSON.stringify(incorrectAnswer[2]);
             document.querySelector('#currentQuestion').innerHTML = 'Q' + currentIndex + ': ' + question;
             answerValue = Math.floor((Math.random() * 4) + 1);
             var choice1Done = 0;
