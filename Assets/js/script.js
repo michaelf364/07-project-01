@@ -275,7 +275,7 @@ function checkAnswer(selectedAnswer) {
         answerStatus = "Wrong Answer ! ";
         counterOfNotCorrectAnswer++;
         color = 'red'
-        getWekiInfo(correctchoice);
+        getwikiInfo(correctchoice);
     }
 
     results.innerHTML = answerStatus;
@@ -283,7 +283,7 @@ function checkAnswer(selectedAnswer) {
     nextBtn.disabled = false;
 }
 
-function getWekiInfo(correctAnswer) {
+function getwikiInfo(correctAnswer) {
     var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=" + correctAnswer;
     var encodedUrl = encodeURIComponent(queryUrl);
     $.ajax({
