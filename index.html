@@ -20,6 +20,7 @@
     <!-- foundation-rtl.min.css: Compressed CSS with right-to-left reading direction -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation-rtl.min.css"
         integrity="sha256-F+9Ns8Z/1ZISonBbojH743hsmF3x3AlQdJEeD8DhQsE=" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -30,7 +31,7 @@
     </header>
     <main class="container" id="main">
         <section class="grid-x">
-            <div class="cell small-12 medium-6">
+            <div class="column align-self-middle">
                 <h2>Quizzical</h2>
             </div>
         </section>
@@ -47,22 +48,22 @@
             </div>
         </section>
         <section id="casualScn">
-            <div class="grid-x">
-                <div class="cell small-12 medium-6" id="currentQuestion">
+            <div class="row">
+                <div class="column align-self-middle" id="currentQuestion">
                 </div>
             </div>
-            <div class="grid-y" id="answers">
+            <div class="row" id="answers">
                 <fieldset>
-                    <div class="cell">
+                    <div class="flex-grid-column">
                         <input type="radio" id="choice1" name="choices[]" required><label for="choice1"></label>
                     </div>
-                    <div class="cell">
+                    <div class="flex-grid-column">
                         <input type="radio" id="choice2" name="choices[]"><label for="choice2"></label>
                     </div>
-                    <div class="cell">
+                    <div class="flex-grid-column">
                         <input type="radio" id="choice3" name="choices[]"><label for="choice3"></label>
                     </div>
-                    <div class="cell">
+                    <div class="flex-grid-column">
                         <input type="radio" id="choice4" name="choices[]"><label for="choice4"></label>
                     </div>
                 </fieldset>
@@ -72,12 +73,13 @@
                     <label id="results"></label>
                 </div>
             </div>
-            <div class="grid-x">
-                <p id="resultsWiki"></p>
+            <div class="row">
+                <!--Changed grid x to row from foundation site and added in a class that should make the column align to the bottom of the page-->
+                <p id="resultsWiki" class="column align-self-botton"></p>
             </div>
             <div class="grid-x">
                 <div class="cell">
-                    <button class="button" type="button" id="nextBtn">Next</button>
+                    <button class="button" class="column align-self-bottom" type="button" id="nextBtn">Next</button>
                 </div>
                 <footer>
                     <button class="wiki-footer"></button>
@@ -105,14 +107,16 @@
             </div>
             <div class="grid-x">
                 <div class="cell">
-                    <button class="button" type="button" id="playAgainVSBtn">Play Again</button>
-                    <button class="button" type="button" id="highScoresVSBtn">High Scores</button>
+                    <button class="button" class="column self-align-align-center" type="button" id="playAgainVSBtn">Play
+                        Again</button>
+                    <button class="button" class="column self-align-center" type="button" id="highScoresVSBtn">High
+                        Scores</button>
                 </div>
             </div>
         </section>
         <section id="highScoreScn">
             <div class="grid-x">
-                <div class="cell small-12 medium-6">
+                <div class="column self-align-center">
                     <h2 class="row justify-content-center">High Scores:</h2>
                 </div>
             </div>

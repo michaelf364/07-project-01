@@ -16,7 +16,7 @@
     margin: 0;
     display: flex;
     justify-content: center;
-    width: 100vw;
+    width: 200vw;
     justify-content: center;
     align-items: center;
     background-color: hs1(var(--hue), 100%, 200%);

@@ -11,14 +11,6 @@ var currentIndex = 0;
 var resultPerc;
 var arrayOfScoresObj = [];
 
-
-
-
-
-
-
-
-
 //start screen
 var startScn = document.querySelector("#startScn");
 var pName = document.querySelector("#playerInitials");
