@@ -144,16 +144,16 @@ $("#submitPlayerInitials").on("click", function () {
 })
 
 $("#highScoresVSBtn").on("click", function () {
-    perviewHighScore();
+    previewHighScore();
 });
 $("#highScoresBtn").on("click", function () {
-    perviewHighScore();
+    previewHighScore();
 });
 $("#highScoresDSBtn").on("click", function () {
-    perviewHighScore();
+    previewHighScore();
 });
 
-function perviewHighScore(){
+function previewHighScore(){
    
     var tempScores = JSON.parse(localStorage.getItem("player"));
     if (tempScores !== null) {
