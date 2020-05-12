@@ -32,6 +32,10 @@ var score = document.querySelector("#score");
 var playAgainVSBtn = document.querySelector("#playAgainVSBtn");
 var highScoresVSBtn = document.querySelector("#highScoresVSBtn");
 
+//defeat screen
+var defeatScn = document.querySelector("#defeatScn");
+var playAgainDSBtn = document.querySelector("#playAgainDSBtn");
+var highScoresDSBtn = document.querySelector("#highScoresDSBtn");
 
 
 //high score screen
@@ -42,24 +46,13 @@ var highScores = [];
 
 var correctchoice;
 
-var countOFPlayers = countOFPlayers++;
-//defeat screen
-var defeatScn = document.querySelector("#defeatScn");
-var playAgainDSBtn = document.querySelector("#playAgainDSBtn");
-var highScoresDSBtn = document.querySelector("#highScoresDSBtn");
-//high score screen
-var highScoreScn = document.querySelector("#highScoreScn");
-var highScoresList = document.querySelector("#highScoresList");
-var backButton = document.querySelector("#backButton");
-var countOFPlayers=0;
-var correctchoice
-
 function initialize() {
     //loadScores();
     currentIndex = 1;
     startScn.style.display = "block";
     casualScn.style.display = "none";
     victoryScn.style.display = "none";
+    defeatScn.style.display = "none";
     highScoreScn.style.display = "none";
     counterOfCorrectAnswer = 0;
     counterOfNotCorrectAnswer = 0;
@@ -122,6 +115,7 @@ function startAction() {
     resultsWikiInfo.innerHTML = '';
     casualScn.style.display = "block";
     victoryScn.style.display = "none";
+    defeatScn.style.display = "none";
     highScoreScn.style.display = "none";
     $("#nextBtn").show();
     $("#currentQuestion").show();
@@ -156,13 +150,11 @@ $("#highScoresDSBtn").on("click", function () {
 });
 
 function previewHighScore(){
-   
     var tempScores = JSON.parse(localStorage.getItem("player"));
     if (tempScores !== null) {
         highScores = tempScores;
         alert(JSON.stringify(highScores));
     }
-
 }
 
 $("#startBtn").on("click", function () {
@@ -200,6 +192,7 @@ $("#nextBtn").on("click", function () {
         casualScn.style.display = "none";
         victoryScn.style.display = "block";
         highScoreScn.style.display = "none";
+        defeatScn.style.display = "none";
         $("#currentQuestion").hide();
         $("#answers").hide();
         $("#nextBtn").hide();
