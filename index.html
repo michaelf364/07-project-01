@@ -7,8 +7,8 @@
     <title>Quizzical</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
         integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
-    <link rel="stylesheet" href="./Assets/css/styles/style.css">
-    <!-- foundation-float.min.css: Compressed CSS with legacy Float Grid -->
+    <link rel="stylesheet" href="./Assets/css/styles/style.css"> <!-- foundation-float.min.css: Compressed CSS with
+        legacy Float Grid -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation-float.min.css"
         integrity="sha256-4ldVyEvC86/kae2IBWw+eJrTiwNEbUUTmN0zkP4luL4=" crossorigin="anonymous">
 
@@ -20,10 +20,9 @@
     <!-- foundation-rtl.min.css: Compressed CSS with right-to-left reading direction -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation-rtl.min.css"
         integrity="sha256-F+9Ns8Z/1ZISonBbojH743hsmF3x3AlQdJEeD8DhQsE=" crossorigin="anonymous">
-
 </head>
 
-<body>
+<body style="padding: 25px;">
     <header class="top-bar">
         <div class="top-bar-left">
             <a class="title" href="./index.html">Quizzical</a>
@@ -31,8 +30,8 @@
     </header>
     <main class="container" id="main">
         <section class="grid-x">
-            <div class="column align-self-middle">
-                <h2>Quizzical</h2>
+            <div class="cell small-12 medium-6">
+                <h5> welcome to Quizzical</h5>
             </div>
         </section>
         <section class="grid-x">
@@ -43,15 +42,23 @@
         </section>
         <section class="grid-x" id="startScn">
             <div class="cell auto">
-                <button class="button" type="button" id="startBtn">Start</button>
+                <button class="button" type="button" id="startBtn" :hover>Start</button>
+
                 <button class="button" type="button" id="highScoresBtn" style="margin-left: 10px;">High Scores</button>
+
+              <!--  <button class="secondButton" type="button" id="secondQuiz">Second Quiz</button>-->
+
+            </div>
+            <div class="cell auto">
             </div>
         </section>
+
         <section id="casualScn">
             <div class="row">
                 <div class="column align-self-middle" id="currentQuestion">
                 </div>
             </div>
+
             <div class="row" id="answers">
                 <fieldset>
                     <div class="flex-grid-column">
@@ -68,79 +75,93 @@
                     </div>
                 </fieldset>
             </div>
+
+
             <div class="grid-x">
-                <div class="cell small-12 medium-6">
-                    <label id="results"></label>
+                <div  class="cell small-12 medium-6">
+                    <label style="font-weight: bold" id="results"></label>
+                    <label  style=" color:#1779ba" id="resultsWiki"></label>
                 </div>
-            </div>
-            <div class="row">
-                <!--Changed grid x to row from foundation site and added in a class that should make the column align to the bottom of the page-->
-                <p id="resultsWiki" class="column align-self-botton"></p>
             </div>
             <div class="grid-x">
                 <div class="cell">
-                    <button class="button" class="column align-self-bottom" type="button" id="nextBtn">Next</button>
+                    <button class="button" type="button" id="nextBtn">Next</button>
                 </div>
-                <footer>
+             <footer>
                     <button class="wiki-footer"></button>
                 </footer>
             </div>
             </div>
         </section>
+
         <section id="victoryScn">
+
             <div class="grid-x">
-                <h3><span id="score"></span></h3>
+                <h2 class="cell small-12 medium-6">You Win!!</h2>
             </div>
             <div class="grid-x">
                 <div class="cell small-12 medium-6">
                     <div class="input-group">
+
                         <span class="input-group-label">Initials</span>
-                        <input class="input-group-field" type="text" maxlength="2" id="playerInitials">
+                        <input style="margin-left: 38px;" class="input-group-field" type="text" maxlength="5" minlength="1" id="playerInitials"   >
                         <div class="input-group-button">
                             <input type="submit" class="button" id="submitPlayerInitials" value="Submit">
                         </div>
+
                     </div>
                 </div>
             </div>
+
+        <!--    <div class="grid-x">
+                <h3>You had <span id="score"></span> seconds remaining</h3>
+            </div>-->
             <div class="grid-x">
                 <div class="cell">
-                    <button class="button" class="column self-align-center" type="button" id="playAgainVSBtn">Play
-                        Again</button>
-                    <button class="button" class="column self-align-center" type="button" id="highScoresVSBtn">High
-                        Scores</button>
+                    <button class="button" type="button" id="playAgainVSBtn">Play Again</button>
+                    <button class="button" type="button" id="highScoresVSBtn">High Scores</button>
                 </div>
             </div>
         </section>
         <section id="defeatScn">
-            <div class="grid-x self-align-center">
-                <h2 class="cell small-12 medium-6">You Didn't Get a High Score</h2>
+            <div class="grid-x">
+                <h3 class="cell small-12 medium-6">You Lost</h3>
             </div>
-            <div class="grid-x self-align-center">
-                <h3 class="cell small-12 medium-6"> Please Try Again</h3>
+            <div class="grid-x justify-content-center">
+                <h4 class="cell small-12 medium-6"> Please Try Again</h4>
             </div>
             <div class="grid-x">
-                <div class="cell self-align-center">
+                <div class="cell">
                     <button class="button" type="button" id="playAgainDSBtn">Try Again</button>
-                </div>
-                <div class="cell self-align-center">
                     <button class="button" type="button" id="highScoresDSBtn">High Scores</button>
                 </div>
             </div>
         </section>
+
+        <section id="HighScoreSec">
+           <h4> High score  </h4>
+            <div class="grid-x">
+                <label id="highScoreValues"> </label>
+            </div>
+            <button class="button" type="button" id="playAgainFromHighScore">Play Again</button>
+
+        </section>
+
+
         <section id="highScoreScn">
             <div class="grid-x">
-                <div class="column self-align-center">
+                <div class="cell small-12 medium-6">
                     <h2 class="row justify-content-center">High Scores:</h2>
                 </div>
             </div>
             <div class="grid-x">
-                <div class="column self-align-center">
+                <div class="cell small-12 medium-6">
                     <ol id="timeAttackList">
                     </ol>
                 </div>
             </div>
             <div class="grid-x">
-                <div class="column self-align-center">
+                <div class="cell small-12 medium-6">
                     <ol id="highScoresList">
                     </ol>
                 </div>
@@ -152,11 +173,11 @@
             </div>
         </section>
     </main>
-    <footer class="cell shrink footer">
+ <!--   <footer class="cell shrink footer">
         <div>
             <p>Copyright?</p>
         </div>
-    </footer>
+    </footer>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
         integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
