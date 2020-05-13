@@ -1,42 +1,26 @@
-$(document).ready(function() {
+$(document).ready(function () {
     initialize();
 });
 //member variables
-
-var counterOfCorrectAnswer =0;
-var counterOfNotCorrectAnswer =0;
- var answerValue;
+var counterOfCorrectAnswer = 0;
+var counterOfNotCorrectAnswer = 0;
+var answerValue;
 var answerInformation;
-var currentIndex=0;
+var currentIndex = 0;
 var resultPerc;
-var arrayOfScoresObj=new Array();
-
-
-
-
-
-
-
-
+var arrayOfScoresObj = [];
 
 //start screen
 var startScn = document.querySelector("#startScn");
-var pName =document.querySelector("#playerInitials");
-var submitBtn =document.querySelector("#submitPlayerInitials");
-
-var HighScoreSec =document.querySelector("#HighScoreSec");
-var HighScoreLabel =document.querySelector("#highScoreValues");
-var highScoresDSBtn =document.querySelector("#highScoresDSBtn");
-
+var pName = document.querySelector("#playerInitials");
 var startBtn = document.querySelector("#startBtn");
 var highScoresBtn = document.querySelector("#highScoresBtn");
 
 //question screen
 var currentQuestion = document.querySelector("#currentQuestion");
 var answers = document.querySelector("#answers");
-
-var results =document.querySelector('#results')
-var resultsWekiInfo =document.querySelector('#resultsWiki')
+var results = document.querySelector('#results')
+var resultsWikiInfo = document.querySelector('#resultsWiki')
 var casualScn = document.querySelector("#casualScn");
 var nextBtn = document.querySelector("#nextBtn");
 
@@ -53,43 +37,35 @@ var defeatScn = document.querySelector("#defeatScn");
 var playAgainDSBtn = document.querySelector("#playAgainDSBtn");
 var highScoresDSBtn = document.querySelector("#highScoresDSBtn");
 
+
 //high score screen
 var highScoreScn = document.querySelector("#highScoreScn");
 var highScoresList = document.querySelector("#highScoresList");
 var backButton = document.querySelector("#backButton");
-var countOFPlayers=0;
+var highScores = [];
 
-
-
-
-
-var correctchoice
+var correctchoice;
 
 function initialize() {
     //loadScores();
     currentIndex = 1;
- // startScn.style.display = "block";
-     casualScn.style.display = "none";
+    startScn.style.display = "block";
+    casualScn.style.display = "none";
     victoryScn.style.display = "none";
     defeatScn.style.display = "none";
     highScoreScn.style.display = "none";
-      counterOfCorrectAnswer =0;
-      counterOfNotCorrectAnswer =0;
-      answerValue;
-      answerInformation;
-      currentIndex=0;
-      resultPerc;
-    HighScoreSec.style.display = "none";
-    HighScoreLabel.style.display = "none";
-
+    counterOfCorrectAnswer = 0;
+    counterOfNotCorrectAnswer = 0;
+    answerValue;
+    answerInformation;
+    currentIndex = 0;
+    resultPerc;
 }
 
-
-
-function getNextQuestion(){
-    resultsWekiInfo.innerHTML='';
+function getNextQuestion() {
+    resultsWikiInfo.innerHTML = '';
     nextBtn.disabled = true;
-        var api = "https://opentdb.com/api.php?amount=1&category=21&difficulty=medium&type=multiple";
+    var api = "https://opentdb.com/api.php?amount=1&difficulty=medium&type=multiple";
     $.ajax({
         url: api,
         method: "GET"
@@ -101,36 +77,30 @@ function getNextQuestion(){
             var incorrectAnswer = reponse.incorrect_answers;
             var question = reponse.question;
             var answer = reponse.correct_answer;
-             correctchoice = answer;
-            var choice1 = incorrectAnswer[0];
-            var choice2 = incorrectAnswer[1];
-            var choice3 = incorrectAnswer[2];
+            correctchoice = JSON.stringify(answer);
+            var choice1 = JSON.stringify(incorrectAnswer[0]);
+            var choice2 = JSON.stringify(incorrectAnswer[1]);
+            var choice3 = JSON.stringify(incorrectAnswer[2]);
             document.querySelector('#currentQuestion').innerHTML = 'Q' + currentIndex + ': ' + question;
             answerValue = Math.floor((Math.random() * 4) + 1);
             var choice1Done = 0;
             for (var i = 1; i < 5; i++) {
                 if (i === answerValue) {
                     document.querySelector('#choice' + i).nextElementSibling.textContent = correctchoice;
-                }
-
-                else {
+                } else {
                     if (choice1Done === 0) {
                         choice1Done = 1;
                         document.querySelector('#choice' + i).nextElementSibling.textContent = choice1;
-                    }
-                    else {
+                    } else {
                         if (choice1Done === 1) {
                             choice1Done = 2;
                             document.querySelector('#choice' + i).nextElementSibling.textContent = choice2;
-                        }
-                        else {
+                        } else {
                             if (choice1Done === 2) {
                                 choice1Done = 3;
                                 document.querySelector('#choice' + i).nextElementSibling.textContent = choice3;
                             }
-
                         }
-
                     }
                 }
             }
@@ -138,12 +108,11 @@ function getNextQuestion(){
                 document.getElementById('choice' + i).disabled = false;
                 document.getElementById('choice' + i).checked = false;
             }
-
         });
 }
 
-function startAction(){
-    resultsWekiInfo.innerHTML='';
+function startAction() {
+    resultsWikiInfo.innerHTML = '';
     casualScn.style.display = "block";
     victoryScn.style.display = "none";
     defeatScn.style.display = "none";
@@ -152,147 +121,59 @@ function startAction(){
     $("#currentQuestion").show();
     $("#answers").show();
     getNextQuestion();
-    currentIndex=1;
-    HighScoreSec.style.display = "none";
-    HighScoreLabel.style.display = "none";
+    currentIndex = 1;
 }
-
-/*function allStorage() {
-    var values = [],
-        keys = Object.keys(localStorage),
-        i = keys.length;
-    console.log(keys);
-    while ( i-- ) {
-        values.push( localStorage.getItem(keys[i]) );
-    }
-
-    return values;
-}*/
-
-
-
 $("#submitPlayerInitials").on("click", function () {
+  
     if( pName.value==='')
         alert('Please enter your name !')
     else {
-        countOFPlayers++;
+        ;
         var nameOfPlayer = pName.value;
         var scoreObj = {
             name: nameOfPlayer,
             score: resultPerc
         };
-
-        // updated
-        localStorage.setItem("player" + countOFPlayers, JSON.stringify(scoreObj));
-        // alert('Successfully adding your score')
-        HighScoreSec.style.display = "";
-        HighScoreLabel.style.display = "";
-        highScoresDSBtn.style.display = "none";
-        defeatScn.style.display = "none";
-        victoryScn.style.display = "none";
-        HighScoreLabel.innerHTML = getScores();
-
+        localStorage.setItem("player", JSON.stringify(scoreObj));
+        alert('Successfully adding your score');
     }
-
-});
-
+})
 
 $("#highScoresVSBtn").on("click", function () {
-    perviewHighScore();
+    previewHighScore();
 });
-
-
 $("#highScoresBtn").on("click", function () {
-    perviewHighScore();
+    previewHighScore();
 });
-
-
-
 $("#highScoresDSBtn").on("click", function () {
-    perviewHighScore();
+    previewHighScore();
 });
 
-function getScores(){
-    var array=getScoresArray();
-    var text='';
-    if(array.length>0) {
-        for(var i=0; i< array.length; i++){
-            text=text.concat( 'Player : '+array[i].name  +' Score '+  array[i].score +' |') ;
-        }
+function previewHighScore(){
+    var tempScores = JSON.parse(localStorage.getItem("player"));
+    if (tempScores !== null) {
+        highScores = tempScores;
+        alert(JSON.stringify(highScores));
     }
-
-    else text = "No Scores yet  , Lets be the first One";
-
- return text;
-
 }
-
-//  get  all  scores  from local  storage
-function getScoresArray(){
-    var array=[];
-    for(var c=1; c<=countOFPlayers;c++){
-        var obj=JSON.parse(localStorage.getItem("player"+c));
-        array.push(obj);
-    }
-    return array;
-
-}
-
-// updated
-function perviewHighScore(){
-    var array=getScoresArray();
-    var text='';
-       if(array.length>0) {
-        for(var i=0; i< array.length; i++){
-            text=text.concat( 'Player : '+array[i].name  +' Score '+  array[i].score +' |') ;
-        }
-
-    }
-
-    else text = "No Scores yet  , Lets be the first One";
-
-    // alert(text);
-    victoryScn.style.display = "none";
-    defeatScn.style.display = "none";
-    HighScoreSec.style.display = "";
-    HighScoreLabel.style.display = "";
-
-}
-
-
-
-
-
 
 $("#startBtn").on("click", function () {
     startScn.style.display = "none";
-    resultsWekiInfo.innerHTML='';
+    resultsWikiInfo.innerHTML = '';
     startAction();
-    HighScoreSec.style.display = "none";
-    HighScoreLabel.style.display = "none";
 });
 
 $("#playAgainVSBtn").on("click", function () {
     initialize()
-    results.innerHTML ="";
+    results.innerHTML = "";
     startScn.style.display = "";
     $("#currentQuestion").show();
     $("#answers").show();
-  //  startAction();
+    //  startAction();
 });
 
 $("#playAgainDSBtn").on("click", function () {
-    results.innerHTML ="";
-    startScn.style.display = "";
-    initialize()
-    $("#currentQuestion").show();
-    $("#answers").show();
-   // startAction();
-});
-
-
-$("#playAgainFromHighScore").on("click", function () {
-    results.innerHTML ="";
+    results.innerHTML = "";
     startScn.style.display = "";
     initialize()
     $("#currentQuestion").show();
@@ -300,62 +181,39 @@ $("#playAgainFromHighScore").on("click", function () {
     // startAction();
 });
 
-
-
-
 $("#nextBtn").on("click", function () {
-       if (currentIndex < 5) {
-           $("#answers").show();
-           results.innerHTML = '';
-           getNextQuestion();
-           currentIndex++;
+    if (currentIndex < 5) {
+        $("#answers").show();
+        results.innerHTML = '';
+        getNextQuestion();
+        currentIndex++;
     }
     else {
+        casualScn.style.display = "none";
+        victoryScn.style.display = "block";
+        highScoreScn.style.display = "none";
+        defeatScn.style.display = "none";
         $("#currentQuestion").hide();
         $("#answers").hide();
         $("#nextBtn").hide();
         $("#startBtn").show();
-
-
-
-            resultPerc= 100 -(counterOfNotCorrectAnswer*20);
-           results.innerHTML = 'Test is finished  your  result is  ' + resultPerc + ' %  >>>  '+counterOfCorrectAnswer  +' correct answers  and '+counterOfNotCorrectAnswer+' no correct answer' ;
-           results.style.color = "black";
-           // update
-           if (resultPerc === 0) {
-               defeatScn.style.display = "contents";
-           }
-           else {
-               var playerOldScore = getScoresArray();
-               var lastHighScore = 0;
-               for(var i=0; i< playerOldScore.length ; i++ ){
-                   if(playerOldScore[i].score>lastHighScore){
-                       lastHighScore=playerOldScore[i].score;
-                   }
-               }
-
-               if (resultPerc >= lastHighScore) {
-
-                   victoryScn.style.display = "contents";
-               }
-               else {
-
-                   defeatScn.style.display = "contents";
-               }
-
-           }
-    }
-
-
-    resultsWekiInfo.innerHTML='';
+        resultPerc = 100 - (counterOfNotCorrectAnswer * 20);
+        score.innerHTML = 'The test is finished and you scored a ' + resultPerc + '%. You got '+counterOfCorrectAnswer  +' correct and '+counterOfNotCorrectAnswer+' incorrect.' ;
+        score.style.color = "black";
+          if(resultPerc>=50)
+          victoryScn.style.display ="contents";
+            else
+            victoryScn.style.display ="contents";
+        // defeatScn
+ }
+ resultsWikiInfo.innerHTML='';
 });
 
 
-
 // select choice event
- $("#choice1").on("click", function () {
-     checkAnswer(1);
- });
+$("#choice1").on("click", function () {
+    checkAnswer(1);
+});
 $("#choice2").on("click", function () {
     checkAnswer(2);
 });
@@ -366,79 +224,43 @@ $("#choice4").on("click", function () {
     checkAnswer(4);
 });
 
-
-
-
-function checkAnswer(selectedAnswer){
+function checkAnswer(selectedAnswer) {
 
     for (var i = 1; i < 5; i++) {
-        document.getElementById('choice' + i).disabled =true;
+        document.getElementById('choice' + i).disabled = true;
     }
-    answerStatus='';
-    answerInformation='';
-    var color='';
-    if(answerValue===selectedAnswer) {
+    answerStatus = '';
+    answerInformation = '';
+    var color = '';
+    if (answerValue === selectedAnswer) {
         answerStatus = "Correct  answer";
         counterOfCorrectAnswer++;
-        color='green'
+        color = 'green';
     }
     else {
         answerStatus = "Wrong Answer ! ";
         counterOfNotCorrectAnswer++;
-        color='red'
-
+        color = 'red';
     }
-      getWekiInfo(correctchoice);
-    results.innerHTML =answerStatus;
+    getwikiInfo(correctchoice);
+    results.innerHTML = answerStatus;
     results.style.color = color;
     nextBtn.disabled = false;
 }
-
-
-function getWekiInfo(correctAnswer){
-    var wekiInfo='';
-    var api = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=" + correctAnswer;
-
-    $.ajax( {
-        url: api,
-        jsonp: "callback",
-        dataType: 'jsonp',
-        data: {
-            action: "query",
-            list: "search",
-            srsearch: "javascript",
-            format: "json"
-        },
-        xhrFields: { withCredentials: true },
-        success: function(response) {
-            var jsonResponseArr=response.query.pages;
-            var jsonResponseStr=JSON.stringify(jsonResponseArr)
-            var res = jsonResponseStr.split(",");
-            if(res!=null) {
-                //  var wekiInfoRsp = res[3] == undefined ? '' : res[3] + ',' + res[4] == undefined ? '' : res[4] + ',' + res[5] == undefined ? '' : res[5] + ',' + res[6] == undefined ? '' : res[6];
-                var wekiResp =  res[3] + ',' + res[4] + ',' + res[5]+ ',' + res[6];
-                console.log(wekiResp);
-                wekiInfo = wekiResp.replace('"extract"',' ');
-            }
-            else {
-                wekiInfo='No Data Found from weki';
-            }
-
-            resultsWekiInfo.innerHTML='correct Answer Is  :  '+correctAnswer + '>>> '+wekiInfo
-
-        },
-
-        error: function(response) {
-            wekiInfo='No Data Found from weki';
-            resultsWekiInfo.innerHTML=wekiInfo
-
+function getwikiInfo(correctAnswer) {
+    var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=" + correctAnswer;
+    var encodedUrl = encodeURIComponent(queryUrl);
+    $.ajax({
+        type: 'GET',
+        contentType: 'application/json',
+        url: 'https://corsbridge2.herokuapp.com/' + encodedUrl,
+        success: function (data) {
+            console.log(data);
+            var returnedLink = data.query.pages;
+            var returnedKeys = Object.keys(returnedLink)[0];
+            console.log(returnedLink[returnedKeys].extract);
+            var extractedText = returnedLink[returnedKeys].extract;
+            resultsWikiInfo.innerHTML = 'correct Answer Is  :  ' + correctAnswer + '>>> ' + extractedText;
         }
-
     });
-
 }
-
-
-
-
-
