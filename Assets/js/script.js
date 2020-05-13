@@ -125,6 +125,10 @@ function startAction() {
 }
 
 $("#submitPlayerInitials").on("click", function () {
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
     if (pName.value === '')
         alert('Please enter your name !')
     else {
@@ -150,11 +154,19 @@ $("#highScoresDSBtn").on("click", function () {
     previewHighScore();
 });
 
+<<<<<<< HEAD
+function previewHighScore() {
+    var tempScores = JSON.parse(localStorage.getItem("player"));
+    if (tempScores !== null) {
+        highScores = tempScores;
+        alert(JSON.stringify(highScores));
+=======
 function getScoresArray() {
     var array = [];
     for (var c = 1; c <= countOFPlayers; c++) {
         var obj = JSON.parse(localStorage.getItem("player" + c));
         array.push(obj);
+>>>>>>> master
     }
     return array;
 }
@@ -202,6 +214,16 @@ $("#nextBtn").on("click", function () {
         resultPerc = 100 - (counterOfNotCorrectAnswer * 20);
         score.innerHTML = 'The test is finished and you scored a ' + resultPerc + '%. You got ' + counterOfCorrectAnswer + ' correct and ' + counterOfNotCorrectAnswer + ' incorrect.';
         score.style.color = "black";
+<<<<<<< HEAD
+        if (resultPerc >= 50)
+            victoryScn.style.display = "contents";
+        else
+            victoryScn.style.display = "contents";
+        // defeatScn
+    }
+    resultsWikiInfo.innerHTML = '';
+});
+=======
         if (resultPerc == 0) {
             casualScn.style.display = "none";
             victoryScn.style.display = "none";
@@ -221,6 +243,7 @@ $("#nextBtn").on("click", function () {
                 highScoreScn.style.display = "none";
                 defeatScn.style.display = "none";
             } else {
+>>>>>>> master
 
                 casualScn.style.display = "none";
                 victoryScn.style.display = "none";
