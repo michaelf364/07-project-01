@@ -55,4 +55,8 @@ header, h2 {
 #submitPlayerInitials {
   width: 200px;
 }
+
+.container #resultsWiki {
+  display: block;
+}
 /*# sourceMappingURL=style.css.map */
