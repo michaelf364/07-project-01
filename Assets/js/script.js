@@ -7,8 +7,9 @@ var counterOfNotCorrectAnswer = 0;
 var answerValue;
 var answerInformation;
 var currentIndex = 0;
-var resultPerc;
+var resultPerc = 0;
 var arrayOfScoresObj = [];
+var countOFPlayers = 0;
 
 //start screen
 var startScn = document.querySelector("#startScn");
@@ -42,6 +43,7 @@ var highScoresDSBtn = document.querySelector("#highScoresDSBtn");
 var highScoreScn = document.querySelector("#highScoreScn");
 var highScoresList = document.querySelector("#highScoresList");
 var backButton = document.querySelector("#backButton");
+var HighScoreLabel = document.querySelector("#highScoreValues")
 var highScores = [];
 
 var correctchoice;
@@ -113,102 +115,122 @@ function getNextQuestion() {
 
 function startAction() {
     resultsWikiInfo.innerHTML = '';
+    startScn.style.display = "none";
     casualScn.style.display = "block";
     victoryScn.style.display = "none";
     defeatScn.style.display = "none";
     highScoreScn.style.display = "none";
-    $("#nextBtn").show();
-    $("#currentQuestion").show();
-    $("#answers").show();
     getNextQuestion();
     currentIndex = 1;
 }
+
 $("#submitPlayerInitials").on("click", function () {
-  
-    if( pName.value==='')
+    if (pName.value === '')
         alert('Please enter your name !')
     else {
-        ;
+
         var nameOfPlayer = pName.value;
         var scoreObj = {
             name: nameOfPlayer,
             score: resultPerc
         };
-        localStorage.setItem("player", JSON.stringify(scoreObj));
-        alert('Successfully adding your score');
+        localStorage.setItem("player" + countOFPlayers, JSON.stringify(scoreObj));
+        previewHighScore();
     }
 })
+$("#highScoresBtn").on("click", function () {
+    previewHighScore();
+});
 
 $("#highScoresVSBtn").on("click", function () {
     previewHighScore();
 });
-$("#highScoresBtn").on("click", function () {
-    previewHighScore();
-});
+
 $("#highScoresDSBtn").on("click", function () {
     previewHighScore();
 });
 
-function previewHighScore(){
-    var tempScores = JSON.parse(localStorage.getItem("player"));
-    if (tempScores !== null) {
-        highScores = tempScores;
-        alert(JSON.stringify(highScores));
+function getScoresArray() {
+    var array = [];
+    for (var c = 1; c <= countOFPlayers; c++) {
+        var obj = JSON.parse(localStorage.getItem("player" + c));
+        array.push(obj);
     }
+    return array;
+}
+
+function previewHighScore() {
+    startScn.style.display = "none";
+    casualScn.style.display = "none";
+    victoryScn.style.display = "none";
+    defeatScn.style.display = "none";
+    highScoreScn.style.display = "block";
+    var array = getScoresArray();
+    var text = '';
+    if (array.length > 0) {
+        for (var i = 0; i < array.length; i++) {
+            text = text.concat('Player : ' + array[i].name + ' Score ' + array[i].score + ' |');
+        }
+    } else {
+        text = "No Scores yet, Let's be the first one";
+    }
+    HighScoreLabel.innerHTML = text;
 }
 
 $("#startBtn").on("click", function () {
-    startScn.style.display = "none";
-    resultsWikiInfo.innerHTML = '';
     startAction();
 });
 
 $("#playAgainVSBtn").on("click", function () {
-    initialize()
-    results.innerHTML = "";
-    startScn.style.display = "";
-    $("#currentQuestion").show();
-    $("#answers").show();
-    //  startAction();
+    initialize();
 });
 
 $("#playAgainDSBtn").on("click", function () {
-    results.innerHTML = "";
-    startScn.style.display = "";
-    initialize()
-    $("#currentQuestion").show();
-    $("#answers").show();
-    // startAction();
+    initialize();
+});
+$("#backBtn").on("click", function () {
+    initialize();
 });
 
 $("#nextBtn").on("click", function () {
     if (currentIndex < 5) {
-        $("#answers").show();
         results.innerHTML = '';
         getNextQuestion();
         currentIndex++;
     }
     else {
-        casualScn.style.display = "none";
-        victoryScn.style.display = "block";
-        highScoreScn.style.display = "none";
-        defeatScn.style.display = "none";
-        $("#currentQuestion").hide();
-        $("#answers").hide();
-        $("#nextBtn").hide();
-        $("#startBtn").show();
         resultPerc = 100 - (counterOfNotCorrectAnswer * 20);
-        score.innerHTML = 'The test is finished and you scored a ' + resultPerc + '%. You got '+counterOfCorrectAnswer  +' correct and '+counterOfNotCorrectAnswer+' incorrect.' ;
+        score.innerHTML = 'The test is finished and you scored a ' + resultPerc + '%. You got ' + counterOfCorrectAnswer + ' correct and ' + counterOfNotCorrectAnswer + ' incorrect.';
         score.style.color = "black";
-          if(resultPerc>=50)
-          victoryScn.style.display ="contents";
-            else
-            victoryScn.style.display ="contents";
-        // defeatScn
- }
- resultsWikiInfo.innerHTML='';
-});
+        if (resultPerc == 0) {
+            casualScn.style.display = "none";
+            victoryScn.style.display = "none";
+            highScoreScn.style.display = "none";
+            defeatScn.style.display = "block";
+        } else {
+            var playerOldScore = getScoresArray();
+            var lastHighScore = 0;
+            for (var i = 0; i < playerOldScore.length; i++) {
+                if (playerOldScore[i].score > lastHighScore) {
+                    lastHighScore = playerOldScore[i].score;
+                }
+            }
+            if (resultPerc >= lastHighScore) {
+                casualScn.style.display = "none";
+                victoryScn.style.display = "block";
+                highScoreScn.style.display = "none";
+                defeatScn.style.display = "none";
+            } else {
 
+                casualScn.style.display = "none";
+                victoryScn.style.display = "none";
+                highScoreScn.style.display = "none";
+                defeatScn.style.display = "block";
+            }
+        }
+    }
+    resultsWikiInfo.innerHTML = '';
+});
 
 // select choice event
 $("#choice1").on("click", function () {
@@ -225,7 +247,6 @@ $("#choice4").on("click", function () {
 });
 
 function checkAnswer(selectedAnswer) {
-
     for (var i = 1; i < 5; i++) {
         document.getElementById('choice' + i).disabled = true;
     }
@@ -242,14 +263,16 @@ function checkAnswer(selectedAnswer) {
         counterOfNotCorrectAnswer++;
         color = 'red';
     }
-    getwikiInfo(correctchoice);
+    getwikiInfo(JSON.parse(correctchoice));
     results.innerHTML = answerStatus;
     results.style.color = color;
     nextBtn.disabled = false;
 }
+
 function getwikiInfo(correctAnswer) {
     var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=" + correctAnswer;
     var encodedUrl = encodeURIComponent(queryUrl);
+    console.log(queryUrl);
     $.ajax({
         type: 'GET',
         contentType: 'application/json',
@@ -257,6 +280,7 @@ function getwikiInfo(correctAnswer) {
         success: function (data) {
             console.log(data);
             var returnedLink = data.query.pages;
+            console.log(returnedLink);
             var returnedKeys = Object.keys(returnedLink)[0];
             console.log(returnedLink[returnedKeys].extract);
             var extractedText = returnedLink[returnedKeys].extract;
