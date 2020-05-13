@@ -124,8 +124,8 @@ function startAction() {
     currentIndex = 1;
 }
 $("#submitPlayerInitials").on("click", function () {
-  
-    if( pName.value==='')
+
+    if (pName.value === '')
         alert('Please enter your name !')
     else {
         ;
@@ -149,7 +149,7 @@ $("#highScoresDSBtn").on("click", function () {
     previewHighScore();
 });
 
-function previewHighScore(){
+function previewHighScore() {
     var tempScores = JSON.parse(localStorage.getItem("player"));
     if (tempScores !== null) {
         highScores = tempScores;
@@ -198,15 +198,15 @@ $("#nextBtn").on("click", function () {
         $("#nextBtn").hide();
         $("#startBtn").show();
         resultPerc = 100 - (counterOfNotCorrectAnswer * 20);
-        score.innerHTML = 'The test is finished and you scored a ' + resultPerc + '%. You got '+counterOfCorrectAnswer  +' correct and '+counterOfNotCorrectAnswer+' incorrect.' ;
+        score.innerHTML = 'The test is finished and you scored a ' + resultPerc + '%. You got ' + counterOfCorrectAnswer + ' correct and ' + counterOfNotCorrectAnswer + ' incorrect.';
         score.style.color = "black";
-          if(resultPerc>=50)
-          victoryScn.style.display ="contents";
-            else
-            victoryScn.style.display ="contents";
+        if (resultPerc >= 50)
+            victoryScn.style.display = "contents";
+        else
+            victoryScn.style.display = "contents";
         // defeatScn
- }
- resultsWikiInfo.innerHTML='';
+    }
+    resultsWikiInfo.innerHTML = '';
 });
 
 
