@@ -156,6 +156,8 @@ $("#highScoresDSBtn").on("click", function () {
     previewHighScore();
 });
 
+<<<<<<< HEAD
+=======
 function getScores() {
     var array = getScoresArray();
     var text = '';
@@ -169,6 +171,7 @@ function getScores() {
     return text;
 }
 
+>>>>>>> master
 function getScoresArray() {
     var array = [];
     for (var c = 1; c <= countOFPlayers; c++) {
@@ -288,7 +291,7 @@ function checkAnswer(selectedAnswer) {
 }
 
 function getwikiInfo(correctAnswer) {
-    var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=" + correctAnswer;
+    var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exsentences=3&explaintext&redirects=1&titles=" + correctAnswer;
     var encodedUrl = encodeURIComponent(queryUrl);
     console.log(queryUrl);
     $.ajax({
