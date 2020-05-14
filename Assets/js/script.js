@@ -114,6 +114,7 @@ function getNextQuestion() {
 }
 
 function startAction() {
+    results.innerHTML = '';
     resultsWikiInfo.innerHTML = '';
     startScn.style.display = "none";
     casualScn.style.display = "block";
