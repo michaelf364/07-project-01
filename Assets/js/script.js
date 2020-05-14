@@ -9,7 +9,7 @@ var answerInformation;
 var currentIndex = 0;
 var resultPerc = 0;
 var arrayOfScoresObj = [];
-var countOFPlayers = 0;
+var countOFPlayers = 1;
 
 //start screen
 var startScn = document.querySelector("#startScn");
@@ -156,8 +156,6 @@ $("#highScoresDSBtn").on("click", function () {
     previewHighScore();
 });
 
-<<<<<<< HEAD
-=======
 function getScores() {
     var array = getScoresArray();
     var text = '';
@@ -171,7 +169,6 @@ function getScores() {
     return text;
 }
 
->>>>>>> master
 function getScoresArray() {
     var array = [];
     for (var c = 1; c <= countOFPlayers; c++) {
