@@ -310,7 +310,7 @@ function getwikiInfo(correctAnswer) {
             resultsWikiInfo.innerHTML = 'correct Answer Is  :  ' + correctAnswer + '>>> ' + extractedText;
         }
     });
-        var siteLink = "https://en.wikipedia.org/" + correctAnswer;
+        var siteLink = "https://en.wikipedia.org/wiki/" + correctAnswer;
        console.log(siteLink);
         wikiSite.setAttribute("href", siteLink);
         wikiSite.innerHTML = siteLink
