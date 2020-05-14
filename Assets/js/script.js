@@ -156,8 +156,6 @@ $("#highScoresDSBtn").on("click", function () {
     previewHighScore();
 });
 
-<<<<<<< HEAD
-=======
 function getScores() {
     var array = getScoresArray();
     var text = '';
@@ -171,7 +169,6 @@ function getScores() {
     return text;
 }
 
->>>>>>> master
 function getScoresArray() {
     var array = [];
     for (var c = 1; c <= countOFPlayers; c++) {
