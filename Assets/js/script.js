@@ -9,7 +9,7 @@ var answerInformation;
 var currentIndex = 0;
 var resultPerc = 0;
 var arrayOfScoresObj = [];
-var countOFPlayers = 0;
+var countOFPlayers = 1;
 
 //start screen
 var startScn = document.querySelector("#startScn");
