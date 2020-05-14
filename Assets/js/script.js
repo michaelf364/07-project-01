@@ -128,16 +128,22 @@ $("#submitPlayerInitials").on("click", function () {
     if (pName.value === '')
         alert('Please enter your name !')
     else {
-
+        countOFPlayers++;
         var nameOfPlayer = pName.value;
         var scoreObj = {
             name: nameOfPlayer,
             score: resultPerc
         };
         localStorage.setItem("player" + countOFPlayers, JSON.stringify(scoreObj));
-        previewHighScore();
+        startScn.style.display = "none";
+        casualScn.style.display = "none";
+        victoryScn.style.display = "none";
+        defeatScn.style.display = "none";
+        highScoreScn.style.display = "block";
+        HighScoreLabel.innerHTML = getScores();
     }
-})
+});
+
 $("#highScoresBtn").on("click", function () {
     previewHighScore();
 });
@@ -150,6 +156,22 @@ $("#highScoresDSBtn").on("click", function () {
     previewHighScore();
 });
 
+<<<<<<< HEAD
+=======
+function getScores() {
+    var array = getScoresArray();
+    var text = '';
+    if (array.length > 0) {
+        for (var i = 0; i < array.length; i++) {
+            text = text.concat('Player : ' + array[i].name + ' Score ' + array[i].score + ' |');
+        }
+    } else {
+        text = "No Scores yet  , Lets be the first One";
+    }
+    return text;
+}
+
+>>>>>>> master
 function getScoresArray() {
     var array = [];
     for (var c = 1; c <= countOFPlayers; c++) {
@@ -160,21 +182,20 @@ function getScoresArray() {
 }
 
 function previewHighScore() {
+    var array = getScoresArray();
+    var text = '';
+    if (array.length > 0) {
+        for (var i = 0; i < array.length; i++) {
+            text = text.concat('Player: ' + array[i].name + ' Score: ' + array[i].score);
+        }
+    } else {
+        text = "No Scores yet, Let's be the first one";
+    }
     startScn.style.display = "none";
     casualScn.style.display = "none";
     victoryScn.style.display = "none";
     defeatScn.style.display = "none";
     highScoreScn.style.display = "block";
-    var array = getScoresArray();
-    var text = '';
-    if (array.length > 0) {
-        for (var i = 0; i < array.length; i++) {
-            text = text.concat('Player : ' + array[i].name + ' Score ' + array[i].score + ' |');
-        }
-    } else {
-        text = "No Scores yet, Let's be the first one";
-    }
-    HighScoreLabel.innerHTML = text;
 }
 
 $("#startBtn").on("click", function () {
