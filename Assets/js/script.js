@@ -24,6 +24,8 @@ var results = document.querySelector('#results')
 var resultsWikiInfo = document.querySelector('#resultsWiki')
 var casualScn = document.querySelector("#casualScn");
 var nextBtn = document.querySelector("#nextBtn");
+var wikiSite = document.querySelector("#wikiSite");
+
 
 //victory screen
 var victoryScn = document.querySelector("#victoryScn");
@@ -114,6 +116,7 @@ function getNextQuestion() {
 }
 
 function startAction() {
+    wikiSite.innerHTML = '';
     results.innerHTML = '';
     resultsWikiInfo.innerHTML = '';
     startScn.style.display = "none";
@@ -213,6 +216,7 @@ $("#backBtn").on("click", function () {
 
 $("#nextBtn").on("click", function () {
     if (currentIndex < 5) {
+        wikiSite.innerHTML = '';
         results.innerHTML = '';
         getNextQuestion();
         currentIndex++;
@@ -306,4 +310,9 @@ function getwikiInfo(correctAnswer) {
             resultsWikiInfo.innerHTML = 'correct Answer Is  :  ' + correctAnswer + '>>> ' + extractedText;
         }
     });
+        var siteLink = "https://en.wikipedia.org/" + correctAnswer;
+       console.log(siteLink);
+        wikiSite.setAttribute("href", siteLink);
+        wikiSite.innerHTML = siteLink
+
 }
