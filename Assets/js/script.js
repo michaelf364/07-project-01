@@ -46,7 +46,7 @@ var backButton = document.querySelector("#backButton");
 var HighScoreLabel = document.querySelector("#highScoreValues")
 var highScores = [];
 
-var correctchoice;
+var correctchoice = "";
 
 function initialize() {
     //loadScores();
@@ -79,10 +79,10 @@ function getNextQuestion() {
             var incorrectAnswer = reponse.incorrect_answers;
             var question = reponse.question;
             var answer = reponse.correct_answer;
-            correctchoice = JSON.stringify(answer);
-            var choice1 = JSON.stringify(incorrectAnswer[0]);
-            var choice2 = JSON.stringify(incorrectAnswer[1]);
-            var choice3 = JSON.stringify(incorrectAnswer[2]);
+            correctchoice = answer;
+            var choice1 = incorrectAnswer[0];
+            var choice2 = incorrectAnswer[1];
+            var choice3 = incorrectAnswer[2];
             document.querySelector('#currentQuestion').innerHTML = 'Q' + currentIndex + ': ' + question;
             answerValue = Math.floor((Math.random() * 4) + 1);
             var choice1Done = 0;
@@ -128,7 +128,7 @@ $("#submitPlayerInitials").on("click", function () {
     if (pName.value === '')
         alert('Please enter your name !')
     else {
-
+        countOFPlayers++;
         var nameOfPlayer = pName.value;
         var scoreObj = {
             name: nameOfPlayer,
@@ -221,7 +221,6 @@ $("#nextBtn").on("click", function () {
                 highScoreScn.style.display = "none";
                 defeatScn.style.display = "none";
             } else {
-
                 casualScn.style.display = "none";
                 victoryScn.style.display = "none";
                 highScoreScn.style.display = "none";
@@ -263,7 +262,7 @@ function checkAnswer(selectedAnswer) {
         counterOfNotCorrectAnswer++;
         color = 'red';
     }
-    getwikiInfo(JSON.parse(correctchoice));
+    getwikiInfo(correctchoice);
     results.innerHTML = answerStatus;
     results.style.color = color;
     nextBtn.disabled = false;
