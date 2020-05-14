@@ -215,14 +215,14 @@ $("#backBtn").on("click", function () {
 });
 
 $("#nextBtn").on("click", function () {
-    if (currentIndex < 20) {
+    if (currentIndex < 10) {
         wikiSite.innerHTML = '';
         results.innerHTML = '';
         getNextQuestion();
         currentIndex++;
     }
     else {
-        resultPerc = 100 - (counterOfNotCorrectAnswer * 5);
+        resultPerc = 100 - (counterOfNotCorrectAnswer * 10);
         score.innerHTML = 'The test is finished and you scored a ' + resultPerc + '%. You got ' + counterOfCorrectAnswer + ' correct and ' + counterOfNotCorrectAnswer + ' incorrect.';
         score.style.color = "black";
         if (resultPerc == 0) {
