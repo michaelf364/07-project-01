@@ -9,7 +9,7 @@ var answerInformation;
 var currentIndex = 0;
 var resultPerc = 0;
 var arrayOfScoresObj = [];
-var countOFPlayers = 1;
+var countOFPlayers = 0;
 
 //start screen
 var startScn = document.querySelector("#startScn");
@@ -169,7 +169,7 @@ function getScores() {
     var text = '';
     if (array.length > 0) {
         for (var i = 0; i < array.length; i++) {
-            text = text.concat('Player : ' + array[i].name + ' Score ' + array[i].score + ' |');
+            text = text.concat('Player : ' + array[i].name + ' Score ' + array[i].score);
         }
     } else {
         text = "No Scores yet  , Lets be the first One";
