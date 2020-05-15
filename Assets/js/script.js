@@ -90,19 +90,19 @@ function getNextQuestion() {
             var choice1Done = 0;
             for (var i = 1; i < 5; i++) {
                 if (i === answerValue) {
-                    document.querySelector('#choice' + i).nextElementSibling.textContent = correctchoice;
+                    document.querySelector('#choice' + i).nextElementSibling.textContent = htmlDecode(correctchoice);
                 } else {
                     if (choice1Done === 0) {
                         choice1Done = 1;
-                        document.querySelector('#choice' + i).nextElementSibling.textContent = choice1;
+                        document.querySelector('#choice' + i).nextElementSibling.textContent = htmlDecode(choice1);
                     } else {
                         if (choice1Done === 1) {
                             choice1Done = 2;
-                            document.querySelector('#choice' + i).nextElementSibling.textContent = choice2;
+                            document.querySelector('#choice' + i).nextElementSibling.textContent = htmlDecode(choice2);
                         } else {
                             if (choice1Done === 2) {
                                 choice1Done = 3;
-                                document.querySelector('#choice' + i).nextElementSibling.textContent = choice3;
+                                document.querySelector('#choice' + i).nextElementSibling.textContent = htmlDecode(choice3);
                             }
                         }
                     }
@@ -113,6 +113,10 @@ function getNextQuestion() {
                 document.getElementById('choice' + i).checked = false;
             }
         });
+}
+
+function htmlDecode(value) {
+    return $("<textarea/>").html(value).text();
 }
 
 function startAction() {
