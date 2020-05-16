@@ -219,6 +219,7 @@ $("#nextBtn").on("click", function () {
         results.innerHTML = '';
         getNextQuestion();
         currentIndex++;
+        nextBtn.style.display = "none";
     }
     else {
         resultPerc = 100 - (counterOfNotCorrectAnswer * 10);
@@ -288,7 +289,7 @@ function checkAnswer(selectedAnswer) {
     getwikiInfo(JSON.parse(correctchoice));
     results.innerHTML = answerStatus;
     results.style.color = color;
-    nextBtn.style.display = "block"
+    nextBtn.style.display = "block";
 }
 
 function getwikiInfo(correctAnswer) {
