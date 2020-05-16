@@ -292,26 +292,25 @@ function checkAnswer(selectedAnswer) {
 }
 
 function getwikiInfo(correctAnswer) {
-    var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exchars=500&explaintext&redirects=1&titles=" + correctAnswer;
+    var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exchars=400&explaintext&redirects=1&titles=" + correctAnswer;
     var encodedUrl = encodeURIComponent(queryUrl);
-    console.log(queryUrl);
     $.ajax({
         type: 'GET',
         contentType: 'application/json',
         url: 'https://corsbridge2.herokuapp.com/' + encodedUrl,
         success: function (data) {
-            console.log(data);
             var returnedLink = data.query.pages;
-            console.log(returnedLink);
             var returnedKeys = Object.keys(returnedLink)[0];
-            console.log(returnedLink[returnedKeys].extract);
             var extractedText = returnedLink[returnedKeys].extract;
-            resultsWikiInfo.innerHTML = 'correct Answer Is  :  ' + correctAnswer + '>>> ' + extractedText;
+            if(document.documentElement.clientHeight < 700){
+                resultsWikiInfo.innerHTML = 'The Correct Answer Is : ' + correctAnswer;
+            }else{
+                resultsWikiInfo.innerHTML = 'The Correct Answer Is : ' + correctAnswer + '>>> ' + extractedText;
+            }
         }
     });
-    var siteLink = "https://en.wikipedia.org/wiki/" + correctAnswer;
-    console.log(siteLink);
+    var siteLink = "https://en.wikipedia.org/wiki/" + correctAnswer;    
     wikiSite.setAttribute("href", siteLink);
-    wikiSite.innerHTML = siteLink
+    wikiSite.innerHTML = siteLink;
 
 }
