@@ -7,8 +7,7 @@
     <title>Quizzical</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
         integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
-    <link rel="stylesheet" href="./Assets/css/styles/style.css">
-    <!-- foundation-float.min.css: Compressed CSS with legacy Float Grid -->
+    <link rel="stylesheet" href="./Assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation-float.min.css"
         integrity="sha256-4ldVyEvC86/kae2IBWw+eJrTiwNEbUUTmN0zkP4luL4=" crossorigin="anonymous">
 
@@ -20,7 +19,6 @@
     <!-- foundation-rtl.min.css: Compressed CSS with right-to-left reading direction -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation-rtl.min.css"
         integrity="sha256-F+9Ns8Z/1ZISonBbojH743hsmF3x3AlQdJEeD8DhQsE=" crossorigin="anonymous">
-
 </head>
 
 <body>
@@ -30,21 +28,12 @@
         </div>
     </header>
     <main class="container" id="main">
-        <section class="grid-x">
-            <div class="column align-self-middle">
-                <h2>Quizzical</h2>
-            </div>
-        </section>
-        <section class="grid-x">
-            <div class="cell small-12 medium-6">
-                <hr class="h-divider">
-                </hr>
-            </div>
-        </section>
-        <section class="grid-x" id="startScn">
-            <div class="cell auto">
-                <button class="button" type="button" id="startBtn">Start</button>
-                <button class="button" type="button" id="highScoresBtn" style="margin-left: 10px;">High Scores</button>
+        <section id="startScn">
+            <div class="grid-x align-center text-center">
+                <div class="cell small-4">
+                    <button class="button" type="button" id="startBtn">Start</button>
+                    <button class="button" type="button" id="highScoresBtn">High Scores</button>
+                </div>
             </div>
         </section>
         <section id="casualScn">
@@ -54,16 +43,16 @@
             </div>
             <div class="row" id="answers">
                 <fieldset>
-                    <div class="flex-grid-column">
+                    <div class="column align-self-middle">
                         <input type="radio" id="choice1" name="choices[]" required><label for="choice1"></label>
                     </div>
-                    <div class="flex-grid-column">
+                    <div class="column align-self-middle">
                         <input type="radio" id="choice2" name="choices[]"><label for="choice2"></label>
                     </div>
-                    <div class="flex-grid-column">
+                    <div class="column align-self-middle">
                         <input type="radio" id="choice3" name="choices[]"><label for="choice3"></label>
                     </div>
-                    <div class="flex-grid-column">
+                    <div class="column align-self-middle">
                         <input type="radio" id="choice4" name="choices[]"><label for="choice4"></label>
                     </div>
                 </fieldset>
@@ -80,11 +69,11 @@
             <div class="row align-self-middle">
                 <!--Changed grid x to row from foundation site and added in a class that should make the column align to the bottom of the page-->
 
-                <a id="wikiSite" class="column align-self-middle">More Info</a>
+                <a id="wikiSite" target="_blank" class="column align-self-middle">More Info</a>
             </div>
             <div class="grid-x">
-                <div class="cell">
-                    <button class="button" class="column align-self-middle" type="button" id="nextBtn">Next</button>
+                <div class="column align-self-middle">
+                    <button class="button" class="button" type="button" id="nextBtn">Next</button>
                 </div>
                 <footer>
                     <button class="wiki-footer"></button>
@@ -98,30 +87,22 @@
             </div>
             <div class="grid-x">
                 <div class="cell small-12 medium-6">
-                    <div class="input-group">
-                        <input class="input-group-field" placeholder='Enter your initials here' type="text"
-                            maxlength="2" id="playerInitials">
-                        <div class="input-group-button">
-                            <button type="submit" class="button" id="submitPlayerInitials"
-                                value="Submit">Submit</button>
-                        </div>
-                    </div>
+                    <input placeholder='Enter your initials here' type="text" maxlength="2" id="playerInitials">
+                    <button type="submit" class="button" id="submitPlayerInitials" value="Submit">Submit</button>
                 </div>
             </div>
             </div>
         </section>
         <section id="defeatScn">
-            <div class="grid-x self-align-center">
+            <div class="grid-x   align-center text-center">
                 <h2 class="cell">You Didn't Get a High Score</h2>
             </div>
-            <div class="grid-x self-align-center">
+            <div class="grid-x align-center text-center">
                 <h3 class="cell"> Please Try Again</h3>
             </div>
-            <div class="grid-x">
-                <div class="cell self-align-center">
+            <div class="grid-x align-center text-center">
+                <div class="cell small-4">
                     <button class="button" type="button" id="playAgainDSBtn">Try Again</button>
-                </div>
-                <div class="cell self-align-center">
                     <button class="button" type="button" id="highScoresDSBtn">High Scores</button>
                 </div>
             </div>
@@ -145,11 +126,6 @@
             </div>
         </section>
     </main>
-    <footer class="cell shrink footer">
-        <div>
-            <p>Copyright?</p>
-        </div>
-    </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
         integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
