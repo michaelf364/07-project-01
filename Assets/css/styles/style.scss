@@ -67,14 +67,17 @@ header {
     
     }
     
-#submitPlayerInitials {
-        width: 200px;
+.container #resultsWiki {
+        display: block;
     }
 
-.container #resultsWiki {
-    display: block;
-}
-    
+
+
+#submitPlayerInitials .button {
+        width: 200px;
+        height: 40px;
+        margin-left: 5px;
+    }
 
 
 // To create a variable with JavaScript and have it work with SASS
