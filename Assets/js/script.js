@@ -8,18 +8,13 @@ var answerValue;
 var answerInformation;
 var currentIndex = 0;
 var resultPerc = 0;
-var arrayOfScoresObj = [];
 var countOFPlayers = 0;
 
 //start screen
 var startScn = document.querySelector("#startScn");
 var pName = document.querySelector("#playerInitials");
-var startBtn = document.querySelector("#startBtn");
-var highScoresBtn = document.querySelector("#highScoresBtn");
 
 //question screen
-var currentQuestion = document.querySelector("#currentQuestion");
-var answers = document.querySelector("#answers");
 var results = document.querySelector('#results')
 var resultsWikiInfo = document.querySelector('#resultsWiki')
 var casualScn = document.querySelector("#casualScn");
@@ -29,22 +24,13 @@ var wikiSite = document.querySelector("#wikiSite");
 
 //victory screen
 var victoryScn = document.querySelector("#victoryScn");
-var nameInput = document.querySelector("#nameInput");
-var submitBtn = document.querySelector("#submitBtn");
 var score = document.querySelector("#score");
-var playAgainVSBtn = document.querySelector("#playAgainVSBtn");
-var highScoresVSBtn = document.querySelector("#highScoresVSBtn");
 
 //defeat screen
 var defeatScn = document.querySelector("#defeatScn");
-var playAgainDSBtn = document.querySelector("#playAgainDSBtn");
-var highScoresDSBtn = document.querySelector("#highScoresDSBtn");
-
 
 //high score screen
 var highScoreScn = document.querySelector("#highScoreScn");
-var highScoresList = document.querySelector("#highScoresList");
-var backButton = document.querySelector("#backButton");
 var HighScoreLabel = document.querySelector("#highScoreValues")
 var highScores = [];
 
@@ -142,6 +128,7 @@ $("#submitPlayerInitials").on("click", function () {
             name: nameOfPlayer,
             score: resultPerc
         };
+        localStorage.setItem("count", countOFPlayers);
         localStorage.setItem("player" + countOFPlayers, JSON.stringify(scoreObj));
         startScn.style.display = "none";
         casualScn.style.display = "none";
@@ -172,35 +159,42 @@ function getScores() {
             text = text.concat('Player : ' + array[i].name + ' Score ' + array[i].score);
         }
     } else {
-        text = "No Scores yet  , Lets be the first One";
+        text = "No Scores yet, Let's be the first one!";
     }
     return text;
 }
 
 function getScoresArray() {
-    var array = [];
-    for (var c = 1; c <= countOFPlayers; c++) {
+    var values = [];
+    var count = localStorage.getItem("count");
+    for (var c = 1; c <= count; c++) {
         var obj = JSON.parse(localStorage.getItem("player" + c));
-        array.push(obj);
+        if (obj !== undefined)
+            values.push(obj);
+        else {
+            break;
+        }
     }
-    return array;
+    return values;
 }
 
 function previewHighScore() {
     var array = getScoresArray();
+    console.log(array[0])
     var text = '';
     if (array.length > 0) {
         for (var i = 0; i < array.length; i++) {
-            text = text.concat('Player: ' + array[i].name + ' Score: ' + array[i].score);
+            text = text.concat('Player : ' + array[i].name + ' Score ' + array[i].score + ' |');
         }
     } else {
-        text = "No Scores yet, Let's be the first one";
+        text = "No Scores yet, Let's be the first one!";
     }
     startScn.style.display = "none";
     casualScn.style.display = "none";
     victoryScn.style.display = "none";
     defeatScn.style.display = "none";
     highScoreScn.style.display = "block";
+    HighScoreLabel.innerHTML = getScores();
 }
 
 $("#startBtn").on("click", function () {
@@ -314,9 +308,9 @@ function getwikiInfo(correctAnswer) {
             resultsWikiInfo.innerHTML = 'correct Answer Is  :  ' + correctAnswer + '>>> ' + extractedText;
         }
     });
-        var siteLink = "https://en.wikipedia.org/wiki/" + correctAnswer;
-       console.log(siteLink);
-        wikiSite.setAttribute("href", siteLink);
-        wikiSite.innerHTML = siteLink
+    var siteLink = "https://en.wikipedia.org/wiki/" + correctAnswer;
+    console.log(siteLink);
+    wikiSite.setAttribute("href", siteLink);
+    wikiSite.innerHTML = siteLink
 
 }
