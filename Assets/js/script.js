@@ -291,7 +291,7 @@ function checkAnswer(selectedAnswer) {
 }
 
 function getwikiInfo(correctAnswer) {
-    var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exsentences=3&explaintext&redirects=1&titles=" + correctAnswer;
+    var queryUrl = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exchars=500&explaintext&redirects=1&titles=" + correctAnswer;
     var encodedUrl = encodeURIComponent(queryUrl);
     console.log(queryUrl);
     $.ajax({
