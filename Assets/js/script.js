@@ -55,7 +55,7 @@ function initialize() {
 function getNextQuestion() {
     resultsWikiInfo.innerHTML = '';
 
-    var api = "https://opentdb.com/api.php?amount=1&difficulty=medium&type=multiple";
+    var api = "https://opentdb.com/api.php?amount=1&type=multiple";
     $.ajax({
         url: api,
         method: "GET"
