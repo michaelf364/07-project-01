@@ -54,7 +54,7 @@ function initialize() {
 
 function getNextQuestion() {
     resultsWikiInfo.innerHTML = '';
-    nextBtn.disabled = true;
+
     var api = "https://opentdb.com/api.php?amount=1&difficulty=medium&type=multiple";
     $.ajax({
         url: api,
@@ -116,6 +116,7 @@ function startAction() {
     highScoreScn.style.display = "none";
     getNextQuestion();
     currentIndex = 1;
+    nextBtn.style.display = "none"
 }
 
 $("#submitPlayerInitials").on("click", function () {
@@ -287,7 +288,7 @@ function checkAnswer(selectedAnswer) {
     getwikiInfo(JSON.parse(correctchoice));
     results.innerHTML = answerStatus;
     results.style.color = color;
-    nextBtn.disabled = false;
+    nextBtn.style.display = "block"
 }
 
 function getwikiInfo(correctAnswer) {
