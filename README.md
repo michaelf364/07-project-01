@@ -21,6 +21,9 @@ Once the user finishes answering all ten questions, a new screen will appear to 
 
 Enjoy playing this trivia game, learn something new, and have fun! 
 
+## Deployed Link
+
+https://michaelf364.github.io/07-project-01/
 
 
 
